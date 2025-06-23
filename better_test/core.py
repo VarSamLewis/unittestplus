@@ -6,6 +6,7 @@ import json
 import inspect
 import hashlib
 import uuid
+from log_test import write_json
 
 
 def _execute_function(func, args=None, kwargs=None):
@@ -91,31 +92,6 @@ def _checkProfile(func, args=None, kwargs=None):
     memory_used = peak / 1024  # Convert bytes to kilobytes
 
     return result, elapsed_time, memory_used
-
-def diff_json(test_1, test_2, path=""):
-    diffs = []
-
-    keys_a = set(test_1.keys())
-    keys_b = set(test_2.keys())
-
-    for key in keys_a - keys_b:
-        diffs.append({"type": "removed", "path": f"{path}.{key}".lstrip("."), "value": test_1[key]})
-
-    for key in keys_b - keys_a:
-        diffs.append({"type": "added", "path": f"{path}.{key}".lstrip("."), "value": test_2[key]})
-
-    for key in keys_a & keys_b:
-        val_a = test_1[key]
-        val_b = test_2[key]
-        current_path = f"{path}.{key}".lstrip(".")
-
-        if isinstance(val_a, dict) and isinstance(val_b, dict):
-            diffs.extend(diff_json(val_a, val_b, path=current_path))
-        elif val_a != val_b:
-            diffs.append({"type": "changed", "path": current_path, "old_value": val_a, "new_value": val_b})
-
-    return diffs
-
 
 def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
     """

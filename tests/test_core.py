@@ -3,7 +3,7 @@ import types
 import re
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'code')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'better_test')))
 
 from core import (
     _execute_function, _check_inputVoutput, _func_Identity, _test_Indenity,
