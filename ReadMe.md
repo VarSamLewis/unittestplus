@@ -87,5 +87,6 @@ To-Do
 - [ ] Functions to rollback changes 
 - [ ] Function to search tests by params
 - [ ] Function to add custom metrics
+- [ ] Do more testing
 - [ ] Change to be implemented: Renaming functions should not change function id
 - [ ] Add more examples and documentation
