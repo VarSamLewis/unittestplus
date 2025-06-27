@@ -40,7 +40,7 @@ def _check_inputVoutput(output_actual, output_target, display = True):
             return False
         
 
-def _func_Identity(func):
+def _gen_func_Identity(func):
     if func is None:
         raise ValueError("Function cannot be None")
 
@@ -61,7 +61,7 @@ def _func_Identity(func):
         raise RuntimeError(f"Error generating function identity: {e}")
 
 
-def _test_Indenity(func, assign_id = False, ID = 0):
+def _gen_test_Indenity(func, assign_id = False, ID = 0):
     """
     if func is None:
         raise ValueError("Function cannot be None")
@@ -105,8 +105,8 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
     combined_inputs.update(kwargs)
 
     code = inspect.getsource(func)
-    func_info = _func_Identity(func)
-    test_id = _test_Indenity(func)
+    func_info = _gen_func_Identity(func)
+    test_id = _gen_test_Indenity(func)
 
     try:
         output_actual, exec_time, mem_used = _checkProfile(func, args=args, kwargs=kwargs)
@@ -153,13 +153,19 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
     else:
         None
 
+    # Write JSON to file
+    write_json(log_entry)
+
     return log_entry
 
 
 if __name__ == "__main__":
 
     def sum2int(int1, int2):
-        int3 = int1 + int2
+        if int1 is None or int2 is None:
+            raise ValueError("Both inputs must be provided") 
+        else:
+            int3 = int1 + int2
         return int3 
 
     def sumintstr(int1, int2):
@@ -167,7 +173,7 @@ if __name__ == "__main__":
         return int3
 
     try:
-        result = bettertest(sum2int, inputs=(20, "Dog"), output=40)
+        result = bettertest(sum2int, inputs=(20, 20), output=40)
     except Exception as e:
         print(e)
     

@@ -1,0 +1,190 @@
+{
+    "function": "sum2int",
+    "function_id": "c8f1654dfba6e24b2f2cc873054b39c3",
+    "tests": [
+        {
+            "test_id": 124513717268214740344300505878136834268,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:40:13.182965"
+            },
+            "definition": "    def sum2int(int1, int2):\n        if int1 is None or int2 is None:\n            raise ValueError(\"Both inputs must be provided\") \n        else:\n            int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 21230664072333947691129262439433118161,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:40:33.719754"
+            },
+            "definition": "    def sum2int(int1, int2):\n        if int1 is None or int2 is None:\n            raise ValueError(\"Both inputs must be provided\") \n        else:\n            int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 273893094061895101467212401167989644461,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:40:34.998704"
+            },
+            "definition": "    def sum2int(int1, int2):\n        if int1 is None or int2 is None:\n            raise ValueError(\"Both inputs must be provided\") \n        else:\n            int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 163785663401278816396627189226422828022,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:40:35.920718"
+            },
+            "definition": "    def sum2int(int1, int2):\n        if int1 is None or int2 is None:\n            raise ValueError(\"Both inputs must be provided\") \n        else:\n            int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 231287128331781738061192782549208380836,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:55:07.755269"
+            },
+            "definition": "    def sum2int(int1, int2):\n        int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 74427214707415092259283677939568051234,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:57:32.334926"
+            },
+            "definition": "    def sum2int(int1, int2):\n        int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 268437871387875439775560812720703234466,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-26T23:57:49.984844"
+            },
+            "definition": "    def sum2int(int1, int2):\n        int3 = int1 + int2\n        return int3 \n"
+        },
+        {
+            "test_id": 200677796398955961613212322596280612694,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 20,
+                    "arg1": 20
+                },
+                "args": [
+                    20,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 40,
+                "actual_output": 40,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-06-27T00:19:29.783573"
+            },
+            "definition": "    def sum2int(int1, int2):\n        int3 = int1 + int2\n        return int3 \n"
+        }
+    ]
+}
