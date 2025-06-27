@@ -2,6 +2,7 @@
 
 **BetterTest** is a lightweight Python utility for testing individual functions with built-in execution profiling. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
 
+I want this to be published on PyPI by the 1st of September 2025
 ## Features
 
 - Easy-to-use `bettertest()` function for testing any Python function.
@@ -80,3 +81,10 @@ Tip: Use `output_match=False` as a flag to dig into failures programmatically.
 ## License
 
 MIT License
+
+To-Do
+- [ ] Functions to compare function definitions and detect changes
+- [ ] Functions to rollback changes 
+- [ ] Function to search tests by params
+- [ ] Change to be implemented: Renaming functions should not change function id
+- [ ] Add more examples and documentation
