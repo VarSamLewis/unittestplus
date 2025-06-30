@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 from collections import Counter
 from math import sqrt
 import statistics as stats
+import json
 
 def _diff_json(test_1, test_2, path=""):
     diffs = []
