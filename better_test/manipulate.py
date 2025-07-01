@@ -1,6 +1,11 @@
 import core
 from log_test import _get_file_path, _load_json
 from pprint import pprint
+from difflib import SequenceMatcher
+from collections import Counter
+from math import sqrt
+import statistics as stats
+import json
 
 def _diff_json(test_1, test_2, path=""):
     diffs = []
@@ -89,6 +94,78 @@ def _delete_file(func):
     return  # or exit the function
 
 
+def _similarity_score(s1, s2):
+    """
+    
+    """
+    #SequenceMatcher similarity score
+    score_1 = SequenceMatcher(None, s1, s2).ratio()
+
+
+    #Jaccard similarity
+    set1 = set(s1)
+    set2 = set(s2)
+    score_2 = len(set1 & set2) / len(set1 | set2)
+
+    # Cosine similarity
+    # Convert strings to character frequency vectors
+    vec1 = Counter(s1)
+    vec2 = Counter(s2)
+
+    # Calculating cosine similarity
+    dot_product = sum(vec1[ch] * vec2[ch] for ch in vec1)
+    magnitude1 = sqrt(sum(count ** 2 for count in vec1.values()))
+    magnitude2 = sqrt(sum(count ** 2 for count in vec2.values()))
+    score_3 = dot_product / (magnitude1 * magnitude2)
+    arr = []
+
+    arr.append([score_1, score_2, score_3])
+
+    return arr
+
+def compare_func_similarity(func, display=True):
+    """
+    Function to grab the most similar test entries definition for a function. Needs to be ammended to give the most similar testID
+    """
+    file_path = _get_file_path(func)
+    if not file_path.exists():
+        print(f"No file found for function '{func}'.")
+        return
+    else:
+        data = _load_json(file_path)     
+        tests = data.get("tests", [])
+        if len(tests) < 2:
+            print("Not enough test entries to compare.")
+            return
+
+        latest_test = tests[-1]
+        definition_1 = latest_test.get("definition", {})
+        prev_tests = tests[:-1]
+
+        similarity_results = []
+        for test in prev_tests:
+            definition_2 = test.get("definition", {})
+            scores = _similarity_score(definition_1, definition_2)
+            median_score = stats.median(scores)
+            similarity_results.append((test.get("testID"), median_score, scores))
+
+        best_match = max(similarity_results, key=lambda x: x[1])
+
+        #if {best_match[1]} < 0.5:
+        #    similarity = "Low"
+        #elif {best_match[1]} > 0.5 and {best_match[1]} < 0.75:
+        #    similarity = "Medium"
+        #else:
+        #    similarity = "High"
+
+        if display == True:
+            print(f"Best match similarity scores: {best_match[2]}")
+        else:
+            None
+
+        return best_match[0]  # Returning the definition as a string
+
+
 def compare_most_recent(func):
     """
     Compare the most recent two test entries for a function.
@@ -110,11 +187,9 @@ def compare_most_recent(func):
 if __name__ == "__main__":
 
     def sum2int(int1, int2):
-        int3 = int1 + int2
+        int3 = int1 + int2 
         return int3 
 
     core.bettertest(sum2int, inputs=(20, 20), output=40, display=False)
     
-    diffs = compare_most_recent("sum2int")
-
-    pprint(diffs)
+    print(compare_func_similarity("sum2int"))

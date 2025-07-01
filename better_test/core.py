@@ -7,6 +7,7 @@ import inspect
 import hashlib
 import uuid
 from log_test import write_json
+import re
 
 
 def _execute_function(func, args=None, kwargs=None):
@@ -93,6 +94,22 @@ def _checkProfile(func, args=None, kwargs=None):
 
     return result, elapsed_time, memory_used
 
+
+def _clean_definition(def_str):
+    # Split by newline to process line by line
+    lines = def_str.split('\n')
+    
+    # Filter out lines that start with '#' after stripping leading whitespace
+    filtered_lines = [line for line in lines if not line.strip().startswith('#')]
+    
+    # Join lines into one string and remove all whitespace characters
+    joined = ''.join(filtered_lines)
+    
+    # Optionally, remove ALL spaces/tabs (including between tokens)
+    cleaned = re.sub(r'\s+', '', joined)
+
+    return cleaned
+
 def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
     """
     Executes a function with test inputs, compares result to expected output, logs the result including timing and memory.
@@ -105,6 +122,7 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
     combined_inputs.update(kwargs)
 
     code = inspect.getsource(func)
+    code_clean = _clean_definition(code)
     func_info = _gen_func_Identity(func)
     test_id = _gen_test_Indenity(func)
 
@@ -142,7 +160,7 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
                 "peak_memory_kb": mem_used,
                 "timestamp": datetime.datetime.utcnow().isoformat()
             },
-            "definition": code
+            "definition": code_clean
         }
     }
 
@@ -163,9 +181,13 @@ if __name__ == "__main__":
 
     def sum2int(int1, int2):
         if int1 is None or int2 is None:
+            # Raise an error if either input is None
             raise ValueError("Both inputs must be provided") 
         else:
-            int3 = int1 + int2
+            # Go ahead with the addition
+            int3 = int1 +   int2
+
+        # Return the result
         return int3 
 
     def sumintstr(int1, int2):
@@ -173,7 +195,7 @@ if __name__ == "__main__":
         return int3
 
     try:
-        result = bettertest(sum2int, inputs=(20, 20), output=40)
+        result = bettertest(sum2int, inputs=(35, 20), output=55)
     except Exception as e:
         print(e)
     

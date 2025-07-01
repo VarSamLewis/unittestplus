@@ -1,0 +1,18 @@
+# Ignore Python cache and logs
+__pycache__/
+*.py[cod]
+*.log
+
+# VSCode settings (if you're using it)
+.vs/
+
+
+# Virtual environments
+env/
+venv/
+
+# Temp files
+*.tmp
+
+*.db
+
