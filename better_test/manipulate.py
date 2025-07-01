@@ -10,6 +10,7 @@ import core
 from log_test import _get_file_path, _load_json
 
 
+
 def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -> List[Dict[str, Any]]:
     diffs: List[Dict[str, Any]] = []
 

@@ -1,8 +1,10 @@
 ﻿import datetime
+from os import error
 import time
 import tracemalloc
 import json
 import inspect
+from pathlib import Path
 import hashlib
 import uuid
 import logging
@@ -17,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 # Constants
 KEY_TESTS = "tests"
+KEY_TEST_ID = "test_id"
 KEY_FUNCTION = "function"
 KEY_FUNCTION_ID = "function_id"
 
@@ -49,7 +52,6 @@ def _check_input_vs_output(output_actual: Any, output_target: Any, display: bool
         if display:
             logger.warning(f"Output mismatch.\nExpected: {output_target}\nGot: {output_actual}")
         return False
-
 
 def _gen_func_identity(func: Callable) -> Dict[str, str]:
     """Generates a hashed identity for a function."""
@@ -103,6 +105,13 @@ def _clean_definition(def_str: str) -> str:
     filtered = [line for line in lines if not line.strip().startswith('#')]
     joined = ''.join(filtered)
     return re.sub(r'\s+', '', joined)
+
+
+def get_previous_test_definition(func: Callable, test: int):
+    """
+    Returns the definition of a previous test by its index.
+    """
+    return " "
 
 
 def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str, Any]]:
@@ -198,10 +207,7 @@ if __name__ == "__main__":
             raise ValueError("Both inputs must be provided")
         return int1 + int2
 
-    def sumintstr(int1: int, int2: int) -> str:
-        return int1 + "not_a_number"  # Deliberate error
-
     try:
         bettertest(sum2int, inputs=[35, 20], output=55)
     except Exception as e:
-        logger.exception("Test failed")
+        logger.exception("Call failed")
