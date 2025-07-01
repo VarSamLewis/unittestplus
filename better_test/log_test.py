@@ -1,10 +1,9 @@
-from genericpath import isfile
 import json
 from pathlib import Path
-import os
+from typing import Any, Dict, Optional
 
 
-def _get_file_path(func_id):
+def _get_file_path(func_id: str) -> Path:
     """
     Get the file path for the given function ID inside ./func/.
     """
@@ -12,33 +11,34 @@ def _get_file_path(func_id):
     file_path = folder / f"{func_id}.json"
     return file_path
 
-def _check_file_exists(file_path):
-	"""
-	Check if a file exists at the given path.
-	"""
 
-	return isfile(file_path)
+def _check_file_exists(file_path: Path) -> bool:
+    """
+    Check if a file exists at the given path.
+    """
+    return file_path.is_file()
 
 
-def _load_json(file_path):
-	"""
-	Load a JSON file from the given path.
-	"""
-	with open(file_path, 'r') as file:
-		data = json.load(file)
-	return data
+def _load_json(file_path: Path) -> Dict[str, Any]:
+    """
+    Load a JSON file from the given path.
+    """
+    with file_path.open('r') as file:
+        data = json.load(file)
+    return data
 
-def _create_folder():
+
+def _create_folder() -> None:
     """
     Create the func folder in the current root if it doesn't exist.
     """
     folder_path = Path.cwd() / "func"
-    if not folder_path.exists():
-        folder_path.mkdir(parents=True, exist_ok=True)
+    folder_path.mkdir(parents=True, exist_ok=True)
 
-def write_json(data):
+
+def write_json(data: Dict[str, Any]) -> None:
     """
-    Write a test entry to a JSON file named after the function_id in better_test/.
+    Write a test entry to a JSON file named after the function_id in ./func/.
     If the file doesn't exist, create it with initial structure.
     If it does, append the new test entry to the "tests" array.
     """
@@ -46,11 +46,11 @@ def write_json(data):
     file_path = _get_file_path(data['function'])
 
     if not _check_file_exists(file_path):
-        # File doesn't exist � create new structure
-        output_data = {
+        # File doesn't exist — create new structure
+        output_data: Dict[str, Any] = {
             "function": data["function"],
             "function_id": data["function_id"],
-            "tests": [data["test"]]
+            "tests": [data["test"]],
         }
     else:
         # Load existing file and append new test
@@ -58,11 +58,9 @@ def write_json(data):
         output_data["tests"].append(data["test"])
 
     # Write to disk
-    with open(file_path, 'w') as file:
+    with file_path.open('w') as file:
         json.dump(output_data, file, indent=4)
-
 
 
 if __name__ == "__main__":
     pass
-	

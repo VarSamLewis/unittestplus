@@ -1,14 +1,17 @@
-import core
-from log_test import _get_file_path, _load_json
-from pprint import pprint
-from difflib import SequenceMatcher
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 from collections import Counter
+from difflib import SequenceMatcher
 from math import sqrt
 import statistics as stats
 import json
 
-def _diff_json(test_1, test_2, path=""):
-    diffs = []
+import core
+from log_test import _get_file_path, _load_json
+
+
+def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -> List[Dict[str, Any]]:
+    diffs: List[Dict[str, Any]] = []
 
     keys_a = set(test_1.keys())
     keys_b = set(test_2.keys())
@@ -31,165 +34,130 @@ def _diff_json(test_1, test_2, path=""):
 
     return diffs
 
-def _filter_by_value(func,key, value):
-    """
-    Filter the test results for a function by a specified key and value.
-    Returns a list of test entries where test[key] == value.
-    """
-    file_path = _get_file_path(func)
-    if not file_path.exists():
-        print(f"No file found for function '{func}'.")
-        return []
-    elif len(tests := _load_json(file_path).get("tests", [])) < 1:
-        print(f"No file found for function '{func}'.")
-        return []
-    data = _load_json(file_path)
-    tests = data.get("tests", [])
-    filtered = [test for test in tests if test.get(key) == value]
-    return filtered
-    
 
-def _clear_tests(func):
+def _clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """
     Clear all test entries for a function.
     """
-    file_path = _get_file_path(func)
+    file_path: Path = _get_file_path(func)
     if not file_path.exists():
         print(f"No file found for function '{func}'.")
         return
-    data = _load_json(file_path)
+
+    data: Dict[str, Any] = _load_json(file_path)
     data["tests"] = []
 
-    response = input("Are you sure you want to delete data? This CAN NOT be recovered. Type 'Yes' to continue: ")
+    if confirm_callback is None:
+        confirm_callback = lambda: input("Are you sure you want to delete data? This CAN NOT be recovered. Type 'Yes' to continue: ") == "Yes"
 
-    if response == "Yes":
-        # Continue with the function
+    if confirm_callback():
         print("Continuing...")
         with open(file_path, 'w') as f:
             json.dump(data, f, indent=4)
             print(f"All tests cleared for function '{func}'.")
     else:
         print("Operation cancelled.")
-    return  # or exit the function
-    
 
-def _delete_file(func):
+
+def _delete_file(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """
     Delete the JSON file for a function.
     """
-    file_path = _get_file_path(func)
+    file_path: Path = _get_file_path(func)
     if not file_path.exists():
         print(f"No file found for function '{func}'.")
-        return []
+        return
 
-    response = input("Are you sure you want to delete data? This CAN NOT be recovered. Type 'Yes' to continue: ")
+    if confirm_callback is None:
+        confirm_callback = lambda: input("Are you sure you want to delete data? This CAN NOT be recovered. Type 'Yes' to continue: ") == "Yes"
 
-    if response == "Yes":
-        # Continue with the function
+    if confirm_callback():
         print("Continuing...")
-        os.remove(file_path)
+        file_path.unlink()
         print(f"File '{file_path}' has been deleted successfully.")
     else:
         print("Operation cancelled.")
-    return  # or exit the function
 
 
-def _similarity_score(s1, s2):
+def _similarity_score(s1: str, s2: str) -> List[List[float]]:
     """
-    
+    Calculate multiple similarity scores between two strings.
     """
-    #SequenceMatcher similarity score
-    score_1 = SequenceMatcher(None, s1, s2).ratio()
+    # SequenceMatcher similarity
+    score_1: float = SequenceMatcher(None, s1, s2).ratio()
 
-
-    #Jaccard similarity
-    set1 = set(s1)
-    set2 = set(s2)
-    score_2 = len(set1 & set2) / len(set1 | set2)
+    # Jaccard similarity
+    set1, set2 = set(s1), set(s2)
+    score_2: float = len(set1 & set2) / len(set1 | set2)
 
     # Cosine similarity
-    # Convert strings to character frequency vectors
-    vec1 = Counter(s1)
-    vec2 = Counter(s2)
-
-    # Calculating cosine similarity
+    vec1, vec2 = Counter(s1), Counter(s2)
     dot_product = sum(vec1[ch] * vec2[ch] for ch in vec1)
     magnitude1 = sqrt(sum(count ** 2 for count in vec1.values()))
     magnitude2 = sqrt(sum(count ** 2 for count in vec2.values()))
     score_3 = dot_product / (magnitude1 * magnitude2)
-    arr = []
 
-    arr.append([score_1, score_2, score_3])
+    return [[score_1, score_2, score_3]]
 
-    return arr
 
-def compare_func_similarity(func, display=True):
+def compare_func_similarity(func: Union[str, Callable], display: bool = True) -> Optional[str]:
     """
-    Function to grab the most similar test entries definition for a function. Needs to be ammended to give the most similar testID
+    Return the testID of the most similar test definition to the most recent one.
     """
-    file_path = _get_file_path(func)
+    file_path: Path = _get_file_path(func)
     if not file_path.exists():
         print(f"No file found for function '{func}'.")
-        return
-    else:
-        data = _load_json(file_path)     
-        tests = data.get("tests", [])
-        if len(tests) < 2:
-            print("Not enough test entries to compare.")
-            return
+        return None
 
-        latest_test = tests[-1]
-        definition_1 = latest_test.get("definition", {})
-        prev_tests = tests[:-1]
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    if len(tests) < 2:
+        print("Not enough test entries to compare.")
+        return None
 
-        similarity_results = []
-        for test in prev_tests:
-            definition_2 = test.get("definition", {})
-            scores = _similarity_score(definition_1, definition_2)
-            median_score = stats.median(scores)
-            similarity_results.append((test.get("testID"), median_score, scores))
+    latest_test = tests[-1]
+    definition_1 = latest_test.get("definition", "")
+    prev_tests = tests[:-1]
 
-        best_match = max(similarity_results, key=lambda x: x[1])
+    similarity_results: List[Tuple[str, float, List[List[float]]]] = []
+    for test in prev_tests:
+        definition_2 = test.get("definition", "")
+        scores = _similarity_score(definition_1, definition_2)
+        median_score = stats.median(scores[0])
+        similarity_results.append((test.get("testID"), median_score, scores))
 
-        #if {best_match[1]} < 0.5:
-        #    similarity = "Low"
-        #elif {best_match[1]} > 0.5 and {best_match[1]} < 0.75:
-        #    similarity = "Medium"
-        #else:
-        #    similarity = "High"
+    best_match = max(similarity_results, key=lambda x: x[1])
 
-        if display == True:
-            print(f"Best match similarity scores: {best_match[2]}")
-        else:
-            None
+    if display:
+        print(f"Best match similarity scores: {best_match[2]}")
 
-        return best_match[0]  # Returning the definition as a string
+    return best_match[0]
 
 
-def compare_most_recent(func):
+def compare_most_recent(func: Union[str, Callable]) -> List[Dict[str, Any]]:
     """
     Compare the most recent two test entries for a function.
     """
-    
-    file_path = _get_file_path(func)  # Replace with your function ID
+    file_path: Path = _get_file_path(func)
     if not file_path.exists():
         print("No tests found for this function.")
         return []
+
     data = _load_json(file_path)
     tests = data.get("tests", [])
     if len(tests) < 2:
         print("Not enough test entries to compare.")
         return []
+
     test_1 = tests[-1]
     test_2 = tests[-2]
     return _diff_json(test_1, test_2)
 
+
 if __name__ == "__main__":
 
-    def sum2int(int1, int2):
-        int3 = int1 + int2 
-        return int3 
+    def sum2int(int1: int, int2: int) -> int:
+        return int1 + int2
 
     core.bettertest(sum2int, inputs=(20, 20), output=40, display=False)
-    
     print(compare_func_similarity("sum2int"))

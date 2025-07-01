@@ -1,82 +1,84 @@
 ﻿import datetime
 import time
 import tracemalloc
-import pprint
 import json
 import inspect
 import hashlib
 import uuid
-from log_test import write_json
+import logging
 import re
+from typing import Callable, Any, Optional, Dict, List, Tuple
+
+from log_test import write_json, _get_file_path, _load_json  # Use absolute import in real projects
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Constants
+KEY_TESTS = "tests"
+KEY_FUNCTION = "function"
+KEY_FUNCTION_ID = "function_id"
 
 
-def _execute_function(func, args=None, kwargs=None):
+def _execute_function(func: Callable, args: Optional[List[Any]] = None, kwargs: Optional[Dict[str, Any]] = None) -> Any:
+    """Executes a function safely with given arguments."""
     if func is None:
         raise ValueError("Function cannot be None")
-    else:
-        args = args or []
-        kwargs = kwargs or {}
 
-        try:
-            result = func(*args, **kwargs)
-            return result
-        except Exception as e:
-            raise RuntimeError(f"An error occurred while executing the function: {e}")
+    args = args or []
+    kwargs = kwargs or {}
 
-def _check_inputVoutput(output_actual, output_target, display = True):
+    try:
+        return func(*args, **kwargs)
+    except Exception as e:
+        raise RuntimeError(f"Error executing function: {e}")
+
+
+def _check_input_vs_output(output_actual: Any, output_target: Any, display: bool = True) -> Optional[bool]:
+    """Compares actual vs expected output."""
     if output_actual == output_target:
-        if display == True:
-            print("Function output matches expected value.")
-        else:
-            return True
+        if display:
+            logger.info("Function output matches expected value.")
+        return True
     elif output_actual is None:
-        if display == True:
-            print("Function returned None.")
-        else:
-            return False
+        if display:
+            logger.warning("Function returned None.")
+        return False
     else:
-        if display == True:
-            print(f"Output is different.\nExpected: {output_target}\nGot: {output_actual}")
-        else:
-            return False
-        
+        if display:
+            logger.warning(f"Output mismatch.\nExpected: {output_target}\nGot: {output_actual}")
+        return False
 
-def _gen_func_Identity(func):
+
+def _gen_func_identity(func: Callable) -> Dict[str, str]:
+    """Generates a hashed identity for a function."""
     if func is None:
         raise ValueError("Function cannot be None")
 
     try:
-        # Source code and qualified name provide a good fingerprint
-        func_name = func.__name__
-        func_module = func.__module__
-        full_id = f"{func_module}.{func_name}"
-
-        # Create a short unique hash
+        full_id = f"{func.__module__}.{func.__name__}"
         func_hash = hashlib.md5(full_id.encode()).hexdigest()
-
         return {
-            "function": func_name,
-            "function_id": func_hash
+            KEY_FUNCTION: func.__name__,
+            KEY_FUNCTION_ID: func_hash
         }
     except Exception as e:
         raise RuntimeError(f"Error generating function identity: {e}")
 
 
-def _gen_test_Indenity(func, assign_id = False, ID = 0):
-    """
+def _gen_test_identity(func: Callable) -> int:
+    """Generates a unique test identity."""
     if func is None:
         raise ValueError("Function cannot be None")
-    else:
-        return f"{func}_{uuid.uuid4().hex}"
-    """
-    if func is None:
-        raise ValueError("Function cannot be None")
-    else:
-        base_string = f"{func.__module__}.{func.__name__}.{uuid.uuid4()}"
-        return int(hashlib.md5(base_string.encode()).hexdigest(), 16)
+
+    base_string = f"{func.__module__}.{func.__name__}.{uuid.uuid4()}"
+    return int(hashlib.md5(base_string.encode()).hexdigest(), 16)
 
 
-def _checkProfile(func, args=None, kwargs=None):
+def _check_profile(func: Callable, args: Optional[List[Any]] = None, kwargs: Optional[Dict[str, Any]] = None
+                   ) -> Tuple[Any, float, float]:
+    """Profiles function execution time and peak memory usage."""
     args = args or []
     kwargs = kwargs or {}
 
@@ -90,31 +92,50 @@ def _checkProfile(func, args=None, kwargs=None):
     tracemalloc.stop()
 
     elapsed_time = end_time - start_time
-    memory_used = peak / 1024  # Convert bytes to kilobytes
+    memory_used_kb = peak / 1024
 
-    return result, elapsed_time, memory_used
+    return result, elapsed_time, memory_used_kb
 
 
-def _clean_definition(def_str):
-    # Split by newline to process line by line
+def _clean_definition(def_str: str) -> str:
+    """Cleans source code by removing comments and whitespace."""
     lines = def_str.split('\n')
-    
-    # Filter out lines that start with '#' after stripping leading whitespace
-    filtered_lines = [line for line in lines if not line.strip().startswith('#')]
-    
-    # Join lines into one string and remove all whitespace characters
-    joined = ''.join(filtered_lines)
-    
-    # Optionally, remove ALL spaces/tabs (including between tokens)
-    cleaned = re.sub(r'\s+', '', joined)
+    filtered = [line for line in lines if not line.strip().startswith('#')]
+    joined = ''.join(filtered)
+    return re.sub(r'\s+', '', joined)
 
-    return cleaned
 
-def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
+def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str, Any]]:
+    """Filters previous test results by a specific key/value pair."""
+    file_path = _get_file_path(func)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func}'.")
+        return []
+
+    data = _load_json(file_path)
+    tests = data.get(KEY_TESTS, [])
+    return [test for test in tests if test.get(key) == value]
+
+
+def rank_test_by_value(func: Callable, key: str) -> List[Dict[str, Any]]:
+    """Ranks previous tests by a given numeric key (descending)."""
+    file_path = _get_file_path(func)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func}'.")
+        return []
+
+    tests = _load_json(file_path).get(KEY_TESTS, [])
+    return sorted(tests, key=lambda x: x.get(key, 0), reverse=True)
+
+
+def bettertest(func: Callable,
+               inputs: Optional[List[Any]] = None,
+               kwargs: Optional[Dict[str, Any]] = None,
+               output: Any = None,
+               display: bool = True) -> Dict[str, Any]:
     """
-    Executes a function with test inputs, compares result to expected output, logs the result including timing and memory.
+    Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
-
     args = list(inputs) if inputs else []
     kwargs = kwargs or {}
 
@@ -123,32 +144,30 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
 
     code = inspect.getsource(func)
     code_clean = _clean_definition(code)
-    func_info = _gen_func_Identity(func)
-    test_id = _gen_test_Indenity(func)
+    func_info = _gen_func_identity(func)
+    test_id = _gen_test_identity(func)
 
     try:
-        output_actual, exec_time, mem_used = _checkProfile(func, args=args, kwargs=kwargs)
+        output_actual, exec_time, mem_used = _check_profile(func, args=args, kwargs=kwargs)
         error = None
         error_message = None
     except Exception as e:
         output_actual = None
-        exec_time = 0
-        mem_used = 0
+        exec_time = 0.0
+        mem_used = 0.0
         error = True
         error_message = str(e)
 
-    # Only check output if there was no error
     if error is None:
-        _check_inputVoutput(output_actual, output)
-
+        _check_input_vs_output(output_actual, output, display)
 
     log_entry = {
-        "function": func_info["function"],
-        "function_id": func_info["function_id"],
+        KEY_FUNCTION: func_info[KEY_FUNCTION],
+        KEY_FUNCTION_ID: func_info[KEY_FUNCTION_ID],
         "test": {
             "test_id": test_id,
             "error": error,
-            "error_message":error_message,
+            "error_message": error_message,
             "metrics": {
                 "inputs": combined_inputs,
                 "args": args,
@@ -157,45 +176,32 @@ def bettertest(func, inputs=None, kwargs=None, output=None, display=True):
                 "actual_output": output_actual,
                 "output_match": output_actual == output,
                 "execution_time_sec": round(exec_time, 3),
-                "peak_memory_kb": mem_used,
+                "peak_memory_kb": round(mem_used, 3),
                 "timestamp": datetime.datetime.utcnow().isoformat()
             },
             "definition": code_clean
         }
     }
 
+    if display:
+        logger.info(f"--- Running test for function `{func.__name__}` ---\n{json.dumps(log_entry, indent=2)}")
 
-    if display == True:
-        print(f"\n--- Running test for function `{func.__name__}` ---")
-        print(json.dumps(log_entry, indent=2))
-    else:
-        None
-
-    # Write JSON to file
     write_json(log_entry)
 
     return log_entry
 
 
 if __name__ == "__main__":
-
-    def sum2int(int1, int2):
+    # Example test functions for demonstration
+    def sum2int(int1: int, int2: int) -> int:
         if int1 is None or int2 is None:
-            # Raise an error if either input is None
-            raise ValueError("Both inputs must be provided") 
-        else:
-            # Go ahead with the addition
-            int3 = int1 +   int2
+            raise ValueError("Both inputs must be provided")
+        return int1 + int2
 
-        # Return the result
-        return int3 
-
-    def sumintstr(int1, int2):
-        int3 = int1 + "not_a_number"  # Deliberate type mismatch
-        return int3
+    def sumintstr(int1: int, int2: int) -> str:
+        return int1 + "not_a_number"  # Deliberate error
 
     try:
-        result = bettertest(sum2int, inputs=(35, 20), output=55)
+        bettertest(sum2int, inputs=[35, 20], output=55)
     except Exception as e:
-        print(e)
-    
+        logger.exception("Test failed")
