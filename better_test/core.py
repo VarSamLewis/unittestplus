@@ -70,12 +70,22 @@ def _gen_func_identity(func: Callable) -> Dict[str, str]:
 
 
 def _gen_test_identity(func: Callable) -> int:
-    """Generates a unique test identity."""
-    if func is None:
-        raise ValueError("Function cannot be None")
+    """Generates a unique test identity. Doesn't increment but no errors"""
+  
 
-    base_string = f"{func.__module__}.{func.__name__}.{uuid.uuid4()}"
-    return int(hashlib.md5(base_string.encode()).hexdigest(), 16)
+    file_path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return []
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    for test in tests:
+        test_id = test.get(KEY_TESTS, [])
+        if isinstance(test_id, int) and test_id > max_val:
+            max_val = test_id
+
+    return max_val + 1 if max_val != float('-inf') else 1
 
 
 def _check_profile(func: Callable, args: Optional[List[Any]] = None, kwargs: Optional[Dict[str, Any]] = None
@@ -116,7 +126,7 @@ def get_previous_test_definition(func: Callable, test: int):
 
 def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str, Any]]:
     """Filters previous test results by a specific key/value pair."""
-    file_path = _get_file_path(func)
+    file_path = _get_file_path(func.__name__)
     if not file_path.exists():
         logger.warning(f"No file found for function '{func}'.")
         return []
@@ -128,9 +138,9 @@ def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str,
 
 def rank_test_by_value(func: Callable, key: str) -> List[Dict[str, Any]]:
     """Ranks previous tests by a given numeric key (descending)."""
-    file_path = _get_file_path(func)
+    file_path = _get_file_path(func.__name__)
     if not file_path.exists():
-        logger.warning(f"No file found for function '{func}'.")
+        logger.warning(f"No file found for function '{func.__name__}'.")
         return []
 
     tests = _load_json(file_path).get(KEY_TESTS, [])
@@ -201,13 +211,4 @@ def bettertest(func: Callable,
 
 
 if __name__ == "__main__":
-    # Example test functions for demonstration
-    def sum2int(int1: int, int2: int) -> int:
-        if int1 is None or int2 is None:
-            raise ValueError("Both inputs must be provided")
-        return int1 + int2
-
-    try:
-        bettertest(sum2int, inputs=[35, 20], output=55)
-    except Exception as e:
-        logger.exception("Call failed")
+    pass

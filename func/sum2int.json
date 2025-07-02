@@ -1,0 +1,98 @@
+{
+    "function": "sum2int",
+    "function_id": "c8f1654dfba6e24b2f2cc873054b39c3",
+    "tests": [
+        {
+            "test_id": 1,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 35,
+                    "arg1": 20
+                },
+                "args": [
+                    35,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 55,
+                "actual_output": 55,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-02T20:57:59.282568"
+            },
+            "definition": "defsum2int(int1:int,int2:int)->int:ifint1isNoneorint2isNone:raiseValueError(\"Bothinputsmustbeprovided\")returnint1+int2"
+        },
+        {
+            "test_id": 1,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 35,
+                    "arg1": 20
+                },
+                "args": [
+                    35,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 55,
+                "actual_output": 55,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-02T20:58:02.211924"
+            },
+            "definition": "defsum2int(int1:int,int2:int)->int:ifint1isNoneorint2isNone:raiseValueError(\"Bothinputsmustbeprovided\")returnint1+int2"
+        },
+        {
+            "test_id": 1,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 35,
+                    "arg1": 20
+                },
+                "args": [
+                    35,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 55,
+                "actual_output": 55,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-02T20:58:03.560371"
+            },
+            "definition": "defsum2int(int1:int,int2:int)->int:ifint1isNoneorint2isNone:raiseValueError(\"Bothinputsmustbeprovided\")returnint1+int2"
+        },
+        {
+            "test_id": 1,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 35,
+                    "arg1": 20
+                },
+                "args": [
+                    35,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 55,
+                "actual_output": 55,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-02T20:58:04.641549"
+            },
+            "definition": "defsum2int(int1:int,int2:int)->int:ifint1isNoneorint2isNone:raiseValueError(\"Bothinputsmustbeprovided\")returnint1+int2"
+        }
+    ]
+}

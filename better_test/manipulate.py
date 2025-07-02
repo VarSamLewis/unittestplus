@@ -36,13 +36,13 @@ def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -
     return diffs
 
 
-def _clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
+def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """
     Clear all test entries for a function.
     """
-    file_path: Path = _get_file_path(func)
+    file_path: Path = _get_file_path(func.__name__)
     if not file_path.exists():
-        print(f"No file found for function '{func}'.")
+        print(f"No file found for function '{func.__name__}'.")
         return
 
     data: Dict[str, Any] = _load_json(file_path)
@@ -55,7 +55,7 @@ def _clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable
         print("Continuing...")
         with open(file_path, 'w') as f:
             json.dump(data, f, indent=4)
-            print(f"All tests cleared for function '{func}'.")
+            print(f"All tests cleared for function '{func.__name__}'.")
     else:
         print("Operation cancelled.")
 
@@ -64,9 +64,9 @@ def _delete_file(func: Union[str, Callable], confirm_callback: Optional[Callable
     """
     Delete the JSON file for a function.
     """
-    file_path: Path = _get_file_path(func)
+    file_path: Path = _get_file_path(func.__name__)
     if not file_path.exists():
-        print(f"No file found for function '{func}'.")
+        print(f"No file found for function '{func.__name__}'.")
         return
 
     if confirm_callback is None:
@@ -105,7 +105,7 @@ def compare_func_similarity(func: Union[str, Callable], display: bool = True) ->
     """
     Return the testID of the most similar test definition to the most recent one.
     """
-    file_path: Path = _get_file_path(func)
+    file_path: Path = _get_file_path(func.__name__)
     if not file_path.exists():
         print(f"No file found for function '{func}'.")
         return None
@@ -139,7 +139,7 @@ def compare_most_recent(func: Union[str, Callable]) -> List[Dict[str, Any]]:
     """
     Compare the most recent two test entries for a function.
     """
-    file_path: Path = _get_file_path(func)
+    file_path: Path = _get_file_path(func.__name__)
     if not file_path.exists():
         print("No tests found for this function.")
         return []
