@@ -4,7 +4,7 @@ from pathlib import Path
 import os
 
 
-def _get_file_path(func):
+def _get_file_path(func: str) -> Path:
     """
     Get the file path for the given function ID inside ./func/.
     """
@@ -43,8 +43,8 @@ def write_json(data):
     If it does, append the new test entry to the "tests" array.
     """
     _create_folder()  # Ensure the folder exists
-    combined_key = f"{data['function']}_{data['function_id']}"
-    file_path = _get_file_path(combined_key)
+    #combined_key = f"{data['function']}_{data['function_id']}"
+    file_path = _get_file_path(data['function'])
     
 
     if not _check_file_exists(file_path):
