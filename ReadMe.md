@@ -85,8 +85,14 @@ MIT License
 To-Do
 - [ ] Functions to compare function definitions and detect changes
 - [ ] Functions to rollback changes 
-- [ ] Function to search tests by params
 - [ ] Function to add custom metrics
 - [ ] Do more testing
-- [ ] Change to be implemented: Renaming functions should not change function id
+- [ ] definition
 - [ ] Add more examples and documentation
+- [ ] Prepare Your Package for PyPI
+- [ ] Generate PyPI API Token
+- [ ] Add the Token to GitHub Secrets
+- [ ] Create GitHub Action Workflow
+- [ ] Tag a Release to Trigger Deploy
+- [ ] Test on TestPyPI First
+- [ ] Validate on PyPI
