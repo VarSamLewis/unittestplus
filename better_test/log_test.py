@@ -41,7 +41,7 @@ def write_json(data):
     Write a test entry to a JSON file named after the function_id in better_test/.
     If the file doesn't exist, create it with initial structure.
     If it does, append the new test entry to the "tests" array.
-    """
+    """ 
     _create_folder()  # Ensure the folder exists
     #combined_key = f"{data['function']}_{data['function_id']}"
     file_path = _get_file_path(data['function'])
@@ -62,7 +62,6 @@ def write_json(data):
     # Write to disk
     with open(file_path, 'w') as file:
         json.dump(output_data, file, indent=4)
-
 
 
 if __name__ == "__main__":

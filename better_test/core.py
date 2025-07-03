@@ -68,7 +68,6 @@ def _gen_func_identity(func: Callable) -> Dict[str, str]:
     except Exception as e:
         raise RuntimeError(f"Error generating function identity: {e}")
 
-
 def _gen_test_identity(func: Callable) -> int:
     """Generates a unique test identity. Doesn't increment but no errors"""
   
@@ -76,16 +75,15 @@ def _gen_test_identity(func: Callable) -> int:
     if not file_path.exists():
         logger.warning(f"No file found for function '{func.__name__}'.")
         return []
-
+    max_val = float('-inf')
     data = _load_json(file_path)
     tests = data.get("tests", [])
     for test in tests:
-        test_id = test.get(KEY_TESTS, [])
+        test_id = test.get(KEY_TEST_ID, [])
         if isinstance(test_id, int) and test_id > max_val:
             max_val = test_id
 
     return max_val + 1 if max_val != float('-inf') else 1
-
 
 def _check_profile(func: Callable, args: Optional[List[Any]] = None, kwargs: Optional[Dict[str, Any]] = None
                    ) -> Tuple[Any, float, float]:
@@ -107,59 +105,28 @@ def _check_profile(func: Callable, args: Optional[List[Any]] = None, kwargs: Opt
 
     return result, elapsed_time, memory_used_kb
 
-
 def _clean_definition(def_str: str) -> str:
     """Cleans source code by removing comments and whitespace."""
     lines = def_str.split('\n')
     filtered = [line for line in lines if not line.strip().startswith('#')]
     joined = ''.join(filtered)
-    return re.sub(r'\s+', '', joined)
-
-
-def get_previous_test_definition(func: Callable, test: int):
-    """
-    Returns the definition of a previous test by its index.
-    """
-    return " "
-
-
-def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str, Any]]:
-    """Filters previous test results by a specific key/value pair."""
-    file_path = _get_file_path(func.__name__)
-    if not file_path.exists():
-        logger.warning(f"No file found for function '{func}'.")
-        return []
-
-    data = _load_json(file_path)
-    tests = data.get(KEY_TESTS, [])
-    return [test for test in tests if test.get(key) == value]
-
-
-def rank_test_by_value(func: Callable, key: str) -> List[Dict[str, Any]]:
-    """Ranks previous tests by a given numeric key (descending)."""
-    file_path = _get_file_path(func.__name__)
-    if not file_path.exists():
-        logger.warning(f"No file found for function '{func.__name__}'.")
-        return []
-
-    tests = _load_json(file_path).get(KEY_TESTS, [])
-    return sorted(tests, key=lambda x: x.get(key, 0), reverse=True)
-
+    left_strip = joined.lstrip()
+    definition = left_strip.rstrip()
+    return definition #re.sub(r'\s+', '', joined)
 
 def bettertest(func: Callable,
                inputs: Optional[List[Any]] = None,
                kwargs: Optional[Dict[str, Any]] = None,
                output: Any = None,
-               display: bool = True) -> Dict[str, Any]:
+               display: bool = True,
+               alias: str = None) -> Dict[str, Any]:
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
     args = list(inputs) if inputs else []
     kwargs = kwargs or {}
-
     combined_inputs = {f"arg{i}": arg for i, arg in enumerate(args)}
     combined_inputs.update(kwargs)
-
     code = inspect.getsource(func)
     code_clean = _clean_definition(code)
     func_info = _gen_func_identity(func)
@@ -182,8 +149,10 @@ def bettertest(func: Callable,
     log_entry = {
         KEY_FUNCTION: func_info[KEY_FUNCTION],
         KEY_FUNCTION_ID: func_info[KEY_FUNCTION_ID],
-        "test": {
+        "test": 
+            {
             "test_id": test_id,
+            "test_alias": alias,
             "error": error,
             "error_message": error_message,
             "metrics": {
@@ -198,6 +167,7 @@ def bettertest(func: Callable,
                 "timestamp": datetime.datetime.utcnow().isoformat()
             },
             "definition": code_clean
+            
         }
     }
 

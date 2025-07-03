@@ -5,11 +5,14 @@ from difflib import SequenceMatcher
 from math import sqrt
 import statistics as stats
 import json
-
-import core
+import logging
+from log_test import write_json
+from core import KEY_TESTS, KEY_TEST_ID
 from log_test import _get_file_path, _load_json
 
-
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -> List[Dict[str, Any]]:
     diffs: List[Dict[str, Any]] = []
@@ -100,6 +103,98 @@ def _similarity_score(s1: str, s2: str) -> List[List[float]]:
 
     return [[score_1, score_2, score_3]]
 
+def _assign_alias(func: Callable, alias: str, test_id: int) -> str:
+    """
+    Assigns an alias to a test by modifying the existing JSON file.
+    """
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return ""
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+
+    for test in tests:
+        if test.get("test_id") == test_id:
+            test["test_alias"] = alias
+            break
+    else:
+        logger.warning(f"No test with ID {test_id} found.")
+        return ""
+
+    # Save updated data back to file
+    with open(file_path, 'w') as f:
+        json.dump(data, f, indent=4)
+
+    return alias
+
+
+def _get_testid(func: Union[str, Callable], alias: str) -> int:
+    """
+    Returns the testID of a test by its alias.
+    """
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return -1
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    for test in tests:
+        if test.get("test_alias") == alias:
+            return test.get(KEY_TEST_ID, -1)
+    logger.warning(f"No test with alias '{alias}' found.")
+    return -1
+
+def rank_test_by_value(func: Callable, key: str) -> List[Dict[str, Any]]:
+    """Ranks previous tests by a given numeric key (descending)."""
+    file_path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return []
+
+    tests = _load_json(file_path).get(KEY_TESTS, [])
+    return sorted(tests, key=lambda x: x.get(key, 0), reverse=True)
+
+def get_previous_test_definition(func: Callable, test_id: int = None, alias: str = None):
+    """
+    Returns the definition of a previous test by its index.
+    """
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return ""
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    
+    if alias is None:
+        # If no alias is provided, search by test_id
+        for test in tests:
+            if test.get(KEY_TEST_ID) == test_id:
+                return test.get("definition", "")
+    else:
+        # If alias is provided, find the test_id first
+        test_id = _get_testid(func, alias)
+        if test_id == -1:
+            logger.warning(f"No test with alias '{alias}' found.")
+            return ""
+        for test in tests:
+            if test.get(KEY_TEST_ID) == test_id:
+                return test.get("definition", "")
+    return logging.error(f"No test found with testid or alias")
+
+
+def filter_test_by_value(func: Callable, key: str, value: Any) -> List[Dict[str, Any]]:
+    """Filters previous test results by a specific key/value pair."""
+    file_path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func}'.")
+        return []
+
+    data = _load_json(file_path)
+    tests = data.get(KEY_TESTS, [])
+    return [test for test in tests if test.get(key) == value]
 
 def compare_func_similarity(func: Union[str, Callable], display: bool = True) -> Optional[str]:
     """
@@ -156,9 +251,4 @@ def compare_most_recent(func: Union[str, Callable]) -> List[Dict[str, Any]]:
 
 
 if __name__ == "__main__":
-
-    def sum2int(int1: int, int2: int) -> int:
-        return int1 + int2
-
-    core.bettertest(sum2int, inputs=(20, 20), output=40, display=False)
-    print(compare_func_similarity("sum2int"))
+    pass
