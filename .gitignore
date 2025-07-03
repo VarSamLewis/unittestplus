@@ -2,9 +2,11 @@
 __pycache__/
 *.py[cod]
 *.log
+*.pyproj
 
 # VSCode settings (if you're using it)
 .vs/
+
 
 
 # Virtual environments
