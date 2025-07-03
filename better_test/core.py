@@ -72,7 +72,6 @@ def _gen_func_identity(func: Callable) -> Dict[str, str]:
 def _gen_test_identity(func: Callable) -> int:
     """Generates a unique test identity. Doesn't increment but no errors"""
   
-
     file_path = _get_file_path(func.__name__)
     if not file_path.exists():
         logger.warning(f"No file found for function '{func.__name__}'.")
