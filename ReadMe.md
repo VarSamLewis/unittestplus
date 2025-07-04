@@ -29,6 +29,8 @@ Each test produces a JSON-like log entry with structure similar to:
   "function_id": "abc123def456",
   "test": {
     "test_id": 123456789,
+    "test_alias": "Unique alias for easier retrival"
+    "test_message": "Space for messages (authors, commit details) etc."
     "error": null,
     "error_message": null,
     "metrics": {
@@ -49,7 +51,7 @@ Each test produces a JSON-like log entry with structure similar to:
 
 ## Installation
 
-Just clone and run in any Python environment (3.7+). No external dependencies required.
+Just clone and run in any Python environment (3.7+). Please read requirements.txt for dependencies.
 
 ```bash
 git clone https://github.com/yourname/bettertest.git
@@ -63,7 +65,8 @@ BetterTest is for data scientists, ML engineers, and backend developers who want
 
 - Fast feedback loops
 - Lightweight test instrumentation
-- Introspective logging without full test frameworks
+- Introspective testing without full test frameworks
+- Non-determistic function behavior tracking (LLM outputs, random generators etc.)) 
 
 ## Structure
 
@@ -83,11 +86,10 @@ Tip: Use `output_match=False` as a flag to dig into failures programmatically.
 MIT License
 
 To-Do
-- [ ] Functions to compare function definitions and detect changes
 - [ ] Functions to rollback changes 
 - [ ] Function to add custom metrics
+- [ ] Make definition more readable
 - [ ] Do more testing
-- [ ] definition
 - [ ] Add more examples and documentation
 - [ ] Prepare Your Package for PyPI
 - [ ] Generate PyPI API Token

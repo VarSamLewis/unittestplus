@@ -112,14 +112,15 @@ def _clean_definition(def_str: str) -> str:
     joined = ''.join(filtered)
     left_strip = joined.lstrip()
     definition = left_strip.rstrip()
-    return definition #re.sub(r'\s+', '', joined)
+    return definition 
 
 def bettertest(func: Callable,
                inputs: Optional[List[Any]] = None,
                kwargs: Optional[Dict[str, Any]] = None,
-               output: Any = None,
+               expected_output: Any = None,
                display: bool = True,
-               alias: str = None) -> Dict[str, Any]:
+               alias: str = None,
+               message: str = None) -> Dict[str, Any]:
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
@@ -144,7 +145,7 @@ def bettertest(func: Callable,
         error_message = str(e)
 
     if error is None:
-        _check_input_vs_output(output_actual, output, display)
+        _check_input_vs_output(output_actual, expected_output, display)
 
     log_entry = {
         KEY_FUNCTION: func_info[KEY_FUNCTION],
@@ -153,15 +154,16 @@ def bettertest(func: Callable,
             {
             "test_id": test_id,
             "test_alias": alias,
+            "test_message": message,
             "error": error,
             "error_message": error_message,
             "metrics": {
                 "inputs": combined_inputs,
                 "args": args,
                 "kwargs": kwargs,
-                "expected_output": output,
+                "expected_output": expected_output,
                 "actual_output": output_actual,
-                "output_match": output_actual == output,
+                "output_match": output_actual == expected_output,
                 "execution_time_sec": round(exec_time, 3),
                 "peak_memory_kb": round(mem_used, 3),
                 "timestamp": datetime.datetime.utcnow().isoformat()
@@ -173,6 +175,7 @@ def bettertest(func: Callable,
 
     if display:
         logger.info(f"--- Running test for function `{func.__name__}` ---\n{json.dumps(log_entry, indent=2)}")
+
 
     write_json(log_entry)
 

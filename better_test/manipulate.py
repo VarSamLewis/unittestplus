@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 from math import sqrt
 import statistics as stats
 import json
+from pprint import pprint
 import logging
 from log_test import write_json
 from core import KEY_TESTS, KEY_TEST_ID
@@ -14,6 +15,7 @@ from log_test import _get_file_path, _load_json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# -------------------------------------------HELPER FUNCTIONS-------------------------------------------
 def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -> List[Dict[str, Any]]:
     diffs: List[Dict[str, Any]] = []
 
@@ -38,7 +40,30 @@ def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -
 
     return diffs
 
+def _similarity_score(s1: str, s2: str) -> List[List[float]]:
+    """
+    Calculate multiple similarity scores between two strings.
+    """
+    # SequenceMatcher similarity
+    score_1: float = SequenceMatcher(None, s1, s2).ratio()
 
+    # Jaccard similarity
+    set1, set2 = set(s1), set(s2)
+    score_2: float = len(set1 & set2) / len(set1 | set2)
+
+    # Cosine similarity
+    vec1, vec2 = Counter(s1), Counter(s2)
+    dot_product = sum(vec1[ch] * vec2[ch] for ch in vec1)
+    magnitude1 = sqrt(sum(count ** 2 for count in vec1.values()))
+    magnitude2 = sqrt(sum(count ** 2 for count in vec2.values()))
+    score_3 = dot_product / (magnitude1 * magnitude2)
+
+    return [[score_1, score_2, score_3]]
+
+def _pretty_print(json):
+        print(json.dumps(test, indent=4))  # Pretty-print with 4-space indentation
+
+# -------------------------------------------MAIN FUNCTIONS-------------------------------------------
 def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """
     Clear all test entries for a function.
@@ -63,7 +88,7 @@ def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[
         print("Operation cancelled.")
 
 
-def _delete_file(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
+def delete_file(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """
     Delete the JSON file for a function.
     """
@@ -83,27 +108,7 @@ def _delete_file(func: Union[str, Callable], confirm_callback: Optional[Callable
         print("Operation cancelled.")
 
 
-def _similarity_score(s1: str, s2: str) -> List[List[float]]:
-    """
-    Calculate multiple similarity scores between two strings.
-    """
-    # SequenceMatcher similarity
-    score_1: float = SequenceMatcher(None, s1, s2).ratio()
-
-    # Jaccard similarity
-    set1, set2 = set(s1), set(s2)
-    score_2: float = len(set1 & set2) / len(set1 | set2)
-
-    # Cosine similarity
-    vec1, vec2 = Counter(s1), Counter(s2)
-    dot_product = sum(vec1[ch] * vec2[ch] for ch in vec1)
-    magnitude1 = sqrt(sum(count ** 2 for count in vec1.values()))
-    magnitude2 = sqrt(sum(count ** 2 for count in vec2.values()))
-    score_3 = dot_product / (magnitude1 * magnitude2)
-
-    return [[score_1, score_2, score_3]]
-
-def _assign_alias(func: Callable, alias: str, test_id: int) -> str:
+def update_alias(func: Callable, alias: str, test_id: int) -> str:
     """
     Assigns an alias to a test by modifying the existing JSON file.
     """
@@ -130,7 +135,33 @@ def _assign_alias(func: Callable, alias: str, test_id: int) -> str:
     return alias
 
 
-def _get_testid(func: Union[str, Callable], alias: str) -> int:
+def update_message(func: Callable, message: str, test_id: int) -> str:
+    """
+    Assigns a message to a test by modifying the existing JSON file.
+    """
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return ""
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+
+    for test in tests:
+        if test.get("test_id") == test_id:
+            test["test_message"] = message
+            break
+    else:
+        logger.warning(f"No test with ID {test_id} found.")
+        return ""
+
+    # Save updated data back to file
+    with open(file_path, 'w') as f:
+        json.dump(data, f, indent=4)
+
+    return message
+
+def get_testid(func: Union[str, Callable], alias: str) -> int:
     """
     Returns the testID of a test by its alias.
     """
@@ -175,7 +206,7 @@ def get_previous_test_definition(func: Callable, test_id: int = None, alias: str
                 return test.get("definition", "")
     else:
         # If alias is provided, find the test_id first
-        test_id = _get_testid(func, alias)
+        test_id = get_testid(func, alias)
         if test_id == -1:
             logger.warning(f"No test with alias '{alias}' found.")
             return ""
@@ -248,6 +279,37 @@ def compare_most_recent(func: Union[str, Callable]) -> List[Dict[str, Any]]:
     test_1 = tests[-1]
     test_2 = tests[-2]
     return _diff_json(test_1, test_2)
+
+
+def get_test(func: Union[str, Callable],  test_id: int = None, alias: str = None, display: bool =True):
+    """
+    Returns a specific test entry by its ID or alias.
+    """
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        logger.warning(f"No file found for function '{func.__name__}'.")
+        return None
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    test_instance: Optional[Dict[str, Any]] = None
+    
+    if alias is not None:
+        test_id = get_testid(func, alias)
+
+    if test_id is not None:
+        for test in tests:
+            if test.get(KEY_TEST_ID) == test_id:
+                #pprint(test, indent=4)
+                test_instance = test
+                #return test
+                break
+    else:
+        logger.error("Either test_id or alias must be provided.")
+        return None
+
+    if test_instance and display:
+        logger.info(f"--- Test `{test_id}` ---\n{json.dumps(test, indent=2)}")
 
 
 if __name__ == "__main__":
