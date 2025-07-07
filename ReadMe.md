@@ -42,7 +42,8 @@ Each test produces a JSON-like log entry with structure similar to:
       "output_match": true,
       "execution_time_sec": 0.001,
       "peak_memory_kb": 0.789,
-      "timestamp": "2025-06-20T15:30:00.000000"
+      "timestamp": "2025-06-20T15:30:00.000000",
+      "custom_metrics": {}
     },
     "definition": "def sum2int(int1, int2):\n    return int1 + int2"
   }
@@ -87,7 +88,6 @@ MIT License
 
 To-Do
 - [ ] Functions to rollback changes 
-- [ ] Function to add custom metrics
 - [ ] Make definition more readable
 - [ ] Do more testing
 - [ ] Add more examples and documentation
