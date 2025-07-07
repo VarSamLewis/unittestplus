@@ -1,0 +1,204 @@
+{
+    "function": "multiply_and_add",
+    "function_id": "35a6b2c14325c05169572dc817dd9360",
+    "tests": [
+        {
+            "test_id": 1,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:43.851012",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.522049632023076
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 2,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:46.174908",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.6663704040383702
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 3,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:46.888361",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.09874341712694423
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 4,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:47.450274",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.5146682269344036
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 5,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:47.966852",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.5425419737823741
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 6,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-07T10:41:48.436486",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.18107050575309802
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        }
+    ]
+}

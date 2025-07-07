@@ -9,7 +9,7 @@ import hashlib
 import uuid
 import logging
 import re
-from typing import Callable, Any, Optional, Dict, List, Tuple
+from typing import Callable, Any, Optional, Dict, List, Tuple, Union
 
 from log_test import write_json, _get_file_path, _load_json  # Use absolute import in real projects
 
@@ -114,13 +114,49 @@ def _clean_definition(def_str: str) -> str:
     definition = left_strip.rstrip()
     return definition 
 
+def _add_custom_metrics(
+    func: Callable,
+    custom_metrics: Optional[Dict[str, Union[str, Callable[..., Any]]]],
+    args: List[Any],
+    kwargs: Dict[str, Any]
+) -> Dict[str, Any]:
+    """
+    Evaluates user-defined custom metrics using the provided function, args, and kwargs.
+
+    Returns a dictionary of metric_name: result.
+    If custom_metrics is None or empty, returns an empty dictionary.
+    """
+    if not custom_metrics:
+        return {}
+
+    results: Dict[str, Any] = {}
+
+    for name, metric in custom_metrics.items():
+        try:
+            if isinstance(metric, str):
+                context = {
+                    "func": func,
+                    "args": args,
+                    "kwargs": kwargs,
+                }
+                results[name] = eval(metric, {}, context)
+            elif callable(metric):
+                results[name] = metric(func=func, args=args, kwargs=kwargs)
+            else:
+                results[name] = f"[Invalid metric type: {type(metric)}]"
+        except Exception as e:
+            results[name] = f"[Error evaluating metric: {str(e)}]"
+
+    return results
+
 def bettertest(func: Callable,
                inputs: Optional[List[Any]] = None,
                kwargs: Optional[Dict[str, Any]] = None,
                expected_output: Any = None,
                display: bool = True,
                alias: str = None,
-               message: str = None) -> Dict[str, Any]:
+               message: str = None,
+               custom_metrics: Optional[Dict[str, Union[str, Callable[..., Any]]]] = None) -> Dict[str, Any]:
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
@@ -132,6 +168,8 @@ def bettertest(func: Callable,
     code_clean = _clean_definition(code)
     func_info = _gen_func_identity(func)
     test_id = _gen_test_identity(func)
+    
+    custom_metric_values = _add_custom_metrics(func, custom_metrics or {}, args, kwargs)
 
     try:
         output_actual, exec_time, mem_used = _check_profile(func, args=args, kwargs=kwargs)
@@ -166,7 +204,8 @@ def bettertest(func: Callable,
                 "output_match": output_actual == expected_output,
                 "execution_time_sec": round(exec_time, 3),
                 "peak_memory_kb": round(mem_used, 3),
-                "timestamp": datetime.datetime.utcnow().isoformat()
+                "timestamp": datetime.datetime.utcnow().isoformat(),
+                "custom_metrics": custom_metric_values
             },
             "definition": code_clean
             
