@@ -60,9 +60,6 @@ def _similarity_score(s1: str, s2: str) -> List[List[float]]:
 
     return [[score_1, score_2, score_3]]
 
-def _pretty_print(json):
-        print(json.dumps(test, indent=4))  # Pretty-print with 4-space indentation
-
 # -------------------------------------------MAIN FUNCTIONS-------------------------------------------
 def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
     """

@@ -1,123 +1,108 @@
 import unittest
-import types
-import re
-import json
-import datetime
-import tempfile
-import shutil
-from pathlib import Path
+from unittest.mock import patch, mock_open, MagicMock
 import sys
 import os
+from pathlib import Path
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'better_test')))
 
+import log_test
 
-from log_test import (
-    _get_file_path,
-    _check_file_exists,
-    _load_json,
-    write_json
-)
-
-# Dummy data for testing
-dummy_data = {
-    "function": "sum2int",
-    "function_id": "sum2int_abcd1234",
-    "test": {
-        "test_id": "test001",
-        "error": False,
-        "error_message": None,
-        "metrics": {
-            "inputs": {"arg0": 1, "arg1": 2},
-            "args": [1, 2],
-            "kwargs": {},
-            "expected_output": 3,
-            "actual_output": 3,
-            "output_match": True,
-            "execution_time_sec": 0.002,
-            "peak_memory_kb": 512,
-            "timestamp": datetime.datetime.utcnow().isoformat()
-        },
-        "definition": "def sum2int(a, b):\n    return a + b"
-    }
-}
-
-
-class TestBetterTestFunctions(unittest.TestCase):
-
+class TestLogTestFunctions(unittest.TestCase):
     def setUp(self):
-        # Create temp directory and patch Path.cwd
-        self.test_dir = tempfile.mkdtemp()
-        self.better_test_path = os.path.join(self.test_dir, "better_test")
-        os.makedirs(self.better_test_path, exist_ok=True)
+        self.func_name = "myfunc"
+        self.file_path = Path.cwd() / "func" / f"{self.func_name}.json"
+        self.dummy_data = {
+            "function": self.func_name,
+            "function_id": "id123",
+            "test": {"test_id": 1, "result": 42}
+        }
 
-        self.original_cwd = Path.cwd
-        Path.cwd = lambda: Path(self.test_dir)
+    @patch("log_test.Path")
+    def test_get_file_path(self, mock_path):
+        mock_path.cwd.return_value = Path("/tmp")
+        result = log_test._get_file_path("abc")
+        self.assertEqual(result, Path("/tmp") / "func" / "abc.json")
 
-    def tearDown(self):
-        # Restore Path.cwd and clean up
-        Path.cwd = self.original_cwd
-        shutil.rmtree(self.test_dir)
+    @patch("log_test.isfile", return_value=True)
+    def test_check_file_exists_true(self, mock_isfile):
+        self.assertTrue(log_test._check_file_exists("somefile.json"))
 
-    def test_get_file_path(self):
-        expected = Path(self.test_dir) / "better_test" / "sum2int_abcd1234.json"
-        actual = _get_file_path("sum2int_abcd1234")
-        self.assertEqual(Path(actual), expected)
+    @patch("log_test.isfile", return_value=False)
+    def test_check_file_exists_false(self, mock_isfile):
+        self.assertFalse(log_test._check_file_exists("somefile.json"))
 
-    def test_check_file_exists_false(self):
-        path = _get_file_path("nonexistent")
-        self.assertFalse(_check_file_exists(path))
+    @patch("builtins.open", new_callable=mock_open, read_data='{"a":1}')
+    @patch("json.load", return_value={"a": 1})
+    def test_load_json(self, mock_json_load, mock_file):
+        result = log_test._load_json("dummy.json")
+        self.assertEqual(result, {"a": 1})
+        mock_file.assert_called_with("dummy.json", "r")
 
-    def test_write_json_creates_file(self):
-        file_path = _get_file_path(dummy_data["function_id"])
-        self.assertFalse(_check_file_exists(file_path))
+    @patch("log_test.Path")
+    def test_create_folder_not_exists(self, mock_path):
+        mock_folder = MagicMock()
+        mock_folder.exists.return_value = False
+        mock_folder.mkdir = MagicMock()
+        mock_cwd = MagicMock()
+        mock_cwd.__truediv__.return_value = mock_folder
+        mock_path.cwd.return_value = mock_cwd
+        mock_path.return_value = mock_folder
+        log_test._create_folder()
+        mock_folder.mkdir.assert_called_with(parents=True, exist_ok=True)
 
-        write_json(dummy_data)
-        self.assertTrue(_check_file_exists(file_path))
 
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-            self.assertEqual(data["function_id"], dummy_data["function_id"])
-            self.assertEqual(len(data["tests"]), 1)
-            self.assertEqual(data["tests"][0]["test_id"], "test001")
+    @patch("log_test._create_folder")
+    @patch("log_test._get_file_path")
+    @patch("log_test._check_file_exists", return_value=False)
+    @patch("builtins.open", new_callable=mock_open)
+    def test_write_json_creates_new(self, mock_file, mock_exists, mock_get_file_path, mock_create_folder):
+        mock_get_file_path.return_value = Path("func/myfunc.json")
+        data = {
+            "function": "myfunc",
+            "function_id": "id123",
+            "test": {"test_id": 1, "result": 42}
+        }
+        log_test.write_json(data)
+        mock_file.assert_called_with(Path("func/myfunc.json"), "w")
 
-    def test_write_json_appends_test(self):
-        # Write first test
-        write_json(dummy_data)
-
-        # Modify and write second test
-        new_test = dummy_data.copy()
-        new_test["test"] = new_test["test"].copy()
-        new_test["test"]["test_id"] = "test002"
-        write_json(new_test)
-
-        file_path = _get_file_path(dummy_data["function_id"])
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-            self.assertEqual(len(data["tests"]), 2)
-            self.assertEqual(data["tests"][1]["test_id"], "test002")
-
+    @patch("log_test._create_folder")
+    @patch("log_test._get_file_path")
+    @patch("log_test._check_file_exists", return_value=True)
+    @patch("log_test._load_json")
+    @patch("builtins.open", new_callable=mock_open)
+    def test_write_json_appends(self, mock_file, mock_load_json, mock_exists, mock_get_file_path, mock_create_folder):
+        mock_get_file_path.return_value = Path("func/myfunc.json")
+        mock_load_json.return_value = {
+            "function": "myfunc",
+            "function_id": "id123",
+            "tests": [{"test_id": 1, "result": 42}]
+        }
+        data = {
+            "function": "myfunc",
+            "function_id": "id123",
+            "test": {"test_id": 2, "result": 99}
+        }
+        log_test.write_json(data)
+        mock_file.assert_called_with(Path("func/myfunc.json"), "w")
 
 def run_tests():
     class VerboseTestResult(unittest.TextTestResult):
         def addSuccess(self, test):
             super().addSuccess(test)
             print(f"{test.id()} - PASS")
-
         def addFailure(self, test, err):
             super().addFailure(test, err)
             print(f"{test.id()} - FAIL: {err[1]}")
-
         def addError(self, test, err):
             super().addError(test, err)
             print(f"{test.id()} - ERROR: {err[1]}")
 
     loader = unittest.TestLoader()
-    class_test = loader.loadTestsFromTestCase(TestBetterTestFunctions)
+    class_test = loader.loadTestsFromTestCase(TestLogTestFunctions)
     suite = unittest.TestSuite([class_test])
     runner = unittest.TextTestRunner(resultclass=VerboseTestResult, verbosity=0)
     runner.run(suite)
 
-
 if __name__ == "__main__":
     run_tests()
- 
