@@ -69,16 +69,6 @@ BetterTest is for data scientists, ML engineers, and backend developers who want
 - Introspective testing without full test frameworks
 - Non-determistic function behavior tracking (LLM outputs, random generators etc.)) 
 
-## Structure
-
-```
-better_test/
-??? code/
-?   ??? core.py        # Core implementation
-??? tests/
-?   ??? test_core.py     # Unit tests for core utilities
-??? README.md
-```
 
 Tip: Use `output_match=False` as a flag to dig into failures programmatically.
 
@@ -88,13 +78,11 @@ MIT License
 
 To-Do
 - [ ] Functions to rollback changes 
-- [ ] Make definition more readable
-- [ ] Do more testing
 - [ ] Add more examples and documentation
 - [ ] Prepare Your Package for PyPI
 - [ ] Generate PyPI API Token
 - [ ] Add the Token to GitHub Secrets
-- [ ] Create GitHub Action Workflow
+- [ ] Create GitHub Action Workflow for publishing
 - [ ] Tag a Release to Trigger Deploy
 - [ ] Test on TestPyPI First
 - [ ] Validate on PyPI
