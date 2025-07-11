@@ -199,6 +199,39 @@
                 }
             },
             "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
+        },
+        {
+            "test_id": 7,
+            "test_alias": "basic multiplication test",
+            "test_message": "Ensure multiply_and_add behaves correctly",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 3,
+                    "arg1": 4,
+                    "add": 2
+                },
+                "args": [
+                    3,
+                    4
+                ],
+                "kwargs": {
+                    "add": 2
+                },
+                "expected_output": 14,
+                "actual_output": 14,
+                "output_match": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.148,
+                "timestamp": "2025-07-10T20:04:22.875510",
+                "custom_metrics": {
+                    "sum_of_args": 7,
+                    "output_plus_10": 24,
+                    "GPU_usage": 0.6660188753245425
+                }
+            },
+            "definition": "def multiply_and_add(x: int, y: int, add: int = 0) -> int:        \"\"\"        Multiplies x and y, then adds the 'add' value.        \"\"\"        return x * y + add"
         }
     ]
 }

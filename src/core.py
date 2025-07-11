@@ -6,11 +6,12 @@ import json
 import inspect
 from pathlib import Path
 import hashlib
-import uuid
 import logging
-import re
-from typing import Callable, Any, Optional, Dict, List, Tuple, Union
+import pandas as pd
+import numpy as np
 
+from typing import Callable, Any, Optional, Dict, List, Tuple, Union
+from serialise import safe_serialise
 from log_test import write_json, _get_file_path, _load_json  # Use absolute import in real projects
 
 # Configure logging
@@ -36,22 +37,6 @@ def _execute_function(func: Callable, args: Optional[List[Any]] = None, kwargs: 
         return func(*args, **kwargs)
     except Exception as e:
         raise RuntimeError(f"Error executing function: {e}")
-
-
-def _check_input_vs_output(output_actual: Any, output_target: Any, display: bool = True) -> Optional[bool]:
-    """Compares actual vs expected output."""
-    if output_actual == output_target:
-        if display:
-            logger.info("Function output matches expected value.")
-        return True
-    elif output_actual is None:
-        if display:
-            logger.warning("Function returned None.")
-        return False
-    else:
-        if display:
-            logger.warning(f"Output mismatch.\nExpected: {output_target}\nGot: {output_actual}")
-        return False
 
 def _gen_func_identity(func: Callable) -> Dict[str, str]:
     """Generates a hashed identity for a function."""
@@ -149,6 +134,39 @@ def _add_custom_metrics(
 
     return results
 
+def _compare_outputs(a, b, max_items=3):
+    try:
+        # If either is None but not both, return False
+        if a is None and b is None:
+            return True
+        if a is None or b is None:
+            return False
+
+        # Check exact type match first to avoid ambiguous equality
+        if type(a) != type(b):
+            return False
+
+        else:
+            a_ser = safe_serialise(a, max_items)
+            b_ser = safe_serialise(b, max_items)
+
+            if a_ser == b_ser:
+                return True
+
+            print("Mismatch found:")
+            for key in set(a_ser.keys()).union(b_ser.keys()):
+                val_a = a_ser.get(key, "<missing>")
+                val_b = b_ser.get(key, "<missing>")
+                if val_a != val_b:
+                    print(f" - Key '{key}': {val_a} ≠ {val_b}")
+                    logger.warning(
+                        f"Outputs do not match:\nExpected: {a_ser}\nActual: {b_ser}")
+            return False
+    except Exception as e:
+        logger.error(f"Error comparing outputs: {e}")
+        return False
+
+
 def bettertest(func: Callable,
                inputs: Optional[List[Any]] = None,
                kwargs: Optional[Dict[str, Any]] = None,
@@ -160,10 +178,19 @@ def bettertest(func: Callable,
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
-    args = list(inputs) if inputs else []
+    if inputs is None:
+        args = []
+    elif isinstance(inputs, (list, tuple)):
+        args = list(inputs)
+    else:
+        args = [inputs]
+
     kwargs = kwargs or {}
-    combined_inputs = {f"arg{i}": arg for i, arg in enumerate(args)}
-    combined_inputs.update(kwargs)
+    # Serialize all inputs and outputs for logging
+    combined_inputs = {f"arg{i}": safe_serialise(arg) for i, arg in enumerate(args)}
+    combined_inputs.update({k: safe_serialise(v) for k, v in kwargs.items()})
+    
+
     code = inspect.getsource(func)
     code_clean = _clean_definition(code)
     func_info = _gen_func_identity(func)
@@ -182,8 +209,11 @@ def bettertest(func: Callable,
         error = True
         error_message = str(e)
 
+   
+    """
     if error is None:
         _check_input_vs_output(output_actual, expected_output, display)
+    """
 
     log_entry = {
         KEY_FUNCTION: func_info[KEY_FUNCTION],
@@ -197,11 +227,11 @@ def bettertest(func: Callable,
             "error_message": error_message,
             "metrics": {
                 "inputs": combined_inputs,
-                "args": args,
-                "kwargs": kwargs,
-                "expected_output": expected_output,
-                "actual_output": output_actual,
-                "output_match": output_actual == expected_output,
+                "args": [safe_serialise(a) for a in args],
+                "kwargs": {k: safe_serialise(v) for k, v in kwargs.items()},
+                "expected_output": safe_serialise(expected_output),
+                "actual_output": safe_serialise(output_actual),
+                "output_match": _compare_outputs(output_actual, expected_output),
                 "execution_time_sec": round(exec_time, 3),
                 "peak_memory_kb": round(mem_used, 3),
                 "timestamp": datetime.datetime.utcnow().isoformat(),

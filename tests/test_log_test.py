@@ -3,8 +3,9 @@ from unittest.mock import patch, mock_open, MagicMock
 import sys
 import os
 from pathlib import Path
+#from src import log_test
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'better_test')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 import log_test
 
