@@ -12,3 +12,5 @@ hashlib
 uuid
 re
 statistics
+pandas
+numpy
