@@ -77,7 +77,7 @@ Tip: Use `output_match=False` as a flag to dig into failures programmatically.
 MIT License
 
 To-Do
-- [ ] Functions to rollback changes 
+
 - [ ] Add more examples and documentation
 - [ ] Prepare Your Package for PyPI
 - [ ] Generate PyPI API Token
@@ -86,3 +86,5 @@ To-Do
 - [ ] Tag a Release to Trigger Deploy
 - [ ] Test on TestPyPI First
 - [ ] Validate on PyPI
+- [ ] Add test suite class 
+- [ ] Functions to rollback changes 

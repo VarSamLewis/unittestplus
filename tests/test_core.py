@@ -3,8 +3,10 @@ from unittest.mock import patch, MagicMock
 import types
 import sys
 import os
+import pandas as pd
+import numpy as np
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'better_test')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
 import core
 
@@ -26,14 +28,54 @@ class TestCoreFunctions(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             core._execute_function(error_func, args=[1, 2])
 
-    def test_check_input_vs_output_true(self):
-        self.assertTrue(core._check_input_vs_output(10, 10, display=False))
+    def test_compare_outputs_equal_scalars(self):
+        self.assertTrue(core._compare_outputs(5, 5))
+        self.assertTrue(core._compare_outputs("hello", "hello"))
+        self.assertFalse(core._compare_outputs(5, "5"))
 
-    def test_check_input_vs_output_false(self):
-        self.assertFalse(core._check_input_vs_output(5, 10, display=False))
+    def test_compare_outputs_none(self):
+        self.assertTrue(core._compare_outputs(None, None))
+        self.assertFalse(core._compare_outputs(None, 0))
+        self.assertFalse(core._compare_outputs("None", None))
 
-    def test_check_input_vs_output_none(self):
-        self.assertFalse(core._check_input_vs_output(None, 10, display=False))
+    def test_compare_outputs_lists(self):
+        a = [1, 2, 3]
+        b = [1, 2, 3]
+        c = [1, 2, 4]
+        self.assertTrue(core._compare_outputs(a, b))
+        self.assertFalse(core._compare_outputs(a, c))
+
+    def test_compare_outputs_dicts(self):
+        a = {"x": 1, "y": 2}
+        b = {"x": 1, "y": 2}
+        c = {"x": 1, "y": 99}
+        self.assertTrue(core._compare_outputs(a, b))
+        self.assertFalse(core._compare_outputs(a, c))
+
+    def test_compare_outputs_dataframes(self):
+        df1 = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+        df2 = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+        df3 = pd.DataFrame({"a": [1, 2], "b": [3, 9]})
+        self.assertTrue(core._compare_outputs(df1, df2))
+        self.assertFalse(core._compare_outputs(df1, df3))
+
+    def test_compare_outputs_series(self):
+        s1 = pd.Series([1, 2, 3])
+        s2 = pd.Series([1, 2, 3])
+        s3 = pd.Series([1, 2, 4])
+        self.assertTrue(core._compare_outputs(s1, s2))
+        self.assertFalse(core._compare_outputs(s1, s3))
+
+    def test_compare_outputs_ndarray(self):
+        arr1 = np.array([1, 2, 3])
+        arr2 = np.array([1, 2, 3])
+        arr3 = np.array([1, 2, 9])
+        self.assertTrue(core._compare_outputs(arr1, arr2))
+        self.assertFalse(core._compare_outputs(arr1, arr3))
+
+    def test_compare_outputs_type_mismatch(self):
+        self.assertFalse(core._compare_outputs([1, 2, 3], (1, 2, 3)))
+        self.assertFalse(core._compare_outputs({"a": 1}, [("a", 1)]))
 
     def test_gen_func_identity_stability(self):
         id1 = core._gen_func_identity(dummy_func)
