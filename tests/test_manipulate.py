@@ -95,6 +95,7 @@ class TestManipulateFunctions(unittest.TestCase):
         self.assertTrue(any(d["type"] == "changed" for d in diffs))
         self.assertTrue(any(d["type"] == "added" for d in diffs))
 
+
 def run_tests():
     class VerboseTestResult(unittest.TextTestResult):
         def addSuccess(self, test):

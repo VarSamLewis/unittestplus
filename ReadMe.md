@@ -19,7 +19,7 @@ I want this to be published on PyPI by the 1st of September 2025
 
 ## How it works
 
-BetterTest combines traditional unit testing (does the function work as expected), basic profiling (timing and memory usage), and function-level version control, giving engineers a more complete picture of a function and its history without needing to check Git (or other VCS) or rely on integration/end-to-end tests.
+BetterTest combines traditional unit testing (does the function work as expected), basic profiling (timing and memory usage), and function-level version tracking, giving engineers a more complete picture of a function and its history without needing to check Git (or other VCS) or rely on integration/end-to-end tests.
 
 Each test produces a JSON-like log entry with structure similar to:
 
@@ -49,6 +49,7 @@ Each test produces a JSON-like log entry with structure similar to:
   }
 }
 ```
+Complex types (dataframes, dicts etc.) are not stored completely in order to kep test logs lightweight. instead metadata is stored, such as the type and length of the object, and a hash of the content for quick comparison.
 
 ## Installation
 
@@ -88,3 +89,4 @@ To-Do
 - [ ] Validate on PyPI
 - [ ] Add test suite class 
 - [ ] Functions to rollback changes 
+- [ ] Mocks
