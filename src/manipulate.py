@@ -308,6 +308,48 @@ def get_test(func: Union[str, Callable],  test_id: int = None, alias: str = None
     if test_instance and display:
         logger.info(f"--- Test `{test_id}` ---\n{json.dumps(test, indent=2)}")
 
+def compare_io(func: Union[str, Callable],  test_id_1: int ,  test_id_2: int ) -> Optional[str]:
+    """
+    Compare inputs and outputs of two test entries by their IDs.
+    """
+
+    file_path: Path = _get_file_path(func.__name__)
+    if not file_path.exists():
+        print("No tests found for this function.")
+        return None
+
+    data = _load_json(file_path)
+    tests = data.get("tests", [])
+    if len(tests) < 2:
+        print("Not enough test entries to compare.")
+        return None
+
+    input_1 = output_1 = input_2 = output_2 = None
+    for test in tests:
+            if test.get(KEY_TEST_ID) == test_id_1:
+                input_1 = test.get("inputs", {})
+                output_1 = test.get("actual_output", {})
+
+            if test.get(KEY_TEST_ID) == test_id_2:
+                    input_2 = test.get("inputs", {})
+                    output_2 = test.get("actual_output", {})
+
+            if input_1 is not None and input_2 is not None:
+                break
+
+    if input_1 == input_2 and output_1 == output_2:
+        print("Inputs and outputs are identical.")
+
+    elif input_1 == input_2 and output_1 != output_2:
+        print("Inputs are identical, but outputs differ.")
+
+    elif input_1 != input_2 and output_1 == output_2:
+        print("Inputs are different, but outputs are identical.")
+
+    else:
+        print("Inputs and outputs are different.")
+    
+    return input_1, input_2, output_1, output_2
 
 if __name__ == "__main__":
     pass

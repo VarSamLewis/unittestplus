@@ -3,6 +3,9 @@ import core
 import manipulate
 import pandas as pd
 import random
+import polars as pl
+import time 
+
 
 if __name__ == "__main__":
 
@@ -29,16 +32,17 @@ if __name__ == "__main__":
     "GPU_usage": lambda func, args, kwargs: profile_GPU_usage(func, args, kwargs)
     }
 
-    df = pd.DataFrame({
+    df = pl.DataFrame({
         "A": [1, 2, 3],
         "B": [4, 5, 6],
         "C": [7, 8, 9]
     })
 
     def get_df_shape(df):
-        return df
+        return df.shape()
 
     try:
+        #manipulate.compare_io(sum2int,1,8)
         core.bettertest(get_df_shape, inputs=df,expected_output=df ,alias="Check DF")
         #test_id = manipulate.get_testid(sum2int, "Test_message")
         #manipulate.update_message(sum2int, "Updated message", test_id)

@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import polars as pl
 
 def safe_serialise(obj, max_items=3):
     if isinstance(obj, pd.DataFrame):
@@ -17,6 +18,14 @@ def safe_serialise(obj, max_items=3):
             "name": obj.name,
             "dtype": str(obj.dtype),
             "sample": obj.head(max_items).to_list(),
+        }
+    elif isinstance(obj, pl.DataFrame):
+        return {
+            "type": "DataFrame",
+            "shape": obj.shape,
+            "columns": list(obj.columns),
+            "dtypes": {col: str(dtype) for col, dtype in zip(obj.columns, obj.dtypes)},
+            "sample": obj.head(max_items).to_dicts(),
         }
     elif isinstance(obj, np.ndarray):
         return {
