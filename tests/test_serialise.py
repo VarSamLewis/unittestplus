@@ -31,11 +31,11 @@ class TestSafeSerialise(unittest.TestCase):
         self.assertEqual(result["sample"], [1, 2, 3])
 
     def test_serialize_ndarray(self):
-        arr = np.array([[1, 2], [3, 4]])
+        arr = np.array([[1, 2], [3, 4]], dtype=np.int64) # Forcing dtype to int64 for platform compatibility
         result = serialise.safe_serialise(arr)
         self.assertEqual(result["type"], "ndarray")
         self.assertEqual(result["shape"], (2, 2))
-        self.assertEqual(result["dtype"], "int32")
+        self.assertEqual(result["dtype"], "int64")
         self.assertEqual(result["sample"], [1, 2, 3])
 
     def test_serialize_list(self):
