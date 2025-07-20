@@ -149,30 +149,30 @@ class TestCoreFunctions(unittest.TestCase):
     @patch("core.write_json")
     @patch("core._get_file_path")
     @patch("core._load_json")
-    def test_unittest_success(self, mock_load_json, mock_get_file_path, mock_write_json):
+    def test_unittestplus_success(self, mock_load_json, mock_get_file_path, mock_write_json):
         # Patch _get_file_path and _load_json for _gen_test_identity
         mock_get_file_path.return_value.exists.return_value = False
         mock_load_json.return_value = {"tests": []}
-        result = core.unittest(dummy_func, inputs=[2, 2], expected_output=4, display=False)
+        result = core.unittestplus(dummy_func, inputs=[2, 2], expected_output=4, display=False)
         self.assertTrue(result['test']['metrics']['output_match'])
         self.assertIsNone(result['test']['error'])
 
     @patch("core.write_json")
     @patch("core._get_file_path")
     @patch("core._load_json")
-    def test_unittest_failure(self, mock_load_json, mock_get_file_path, mock_write_json):
+    def test_unittestplus_failure(self, mock_load_json, mock_get_file_path, mock_write_json):
         mock_get_file_path.return_value.exists.return_value = False
         mock_load_json.return_value = {"tests": []}
-        result = core.unittest(dummy_func, inputs=[2, 2], expected_output=5, display=False)
+        result = core.unittestplus(dummy_func, inputs=[2, 2], expected_output=5, display=False)
         self.assertFalse(result['test']['metrics']['output_match'])
 
     @patch("core.write_json")
     @patch("core._get_file_path")
     @patch("core._load_json")
-    def test_unittest_error(self, mock_load_json, mock_get_file_path, mock_write_json):
+    def test_unittestplus_error(self, mock_load_json, mock_get_file_path, mock_write_json):
         mock_get_file_path.return_value.exists.return_value = False
         mock_load_json.return_value = {"tests": []}
-        result = core.unittest(error_func, inputs=[2, 3], expected_output=None, display=False)
+        result = core.unittestplus(error_func, inputs=[2, 3], expected_output=None, display=False)
         self.assertTrue(result['test']['error'])
         self.assertTrue(result['test']['error_message'])
 

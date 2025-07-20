@@ -1,5 +1,5 @@
 [project]
-name = "unit_test_plus"
+name = "unittestplus"
 version = "0.1.0"
 description = "Lightweight testing utility for Python functions with profiling and logging."
 readme = "README.md"

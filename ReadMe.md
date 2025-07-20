@@ -1,11 +1,11 @@
-# unit-test-plus
+# unittestplus
 
-**unit-test-plus** is a lightweight Python utility for testing individual functions with built-in execution profiling. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
+**unittestplus** is a lightweight Python utility for testing individual functions with built-in execution profiling. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
 
 I want this to be published on PyPI by the 1st of September 2025
 ## Features
 
-- Easy-to-use `unit-test-plus()` function for testing any Python function.
+- Easy-to-use `unittestplus()` function for testing any Python function.
 - Automatically compares actual vs expected output.
 - Logs:
   - Inputs (args + kwargs)
@@ -19,7 +19,7 @@ I want this to be published on PyPI by the 1st of September 2025
 
 ## How it works
 
-unit-test-plus combines traditional unit testing (does the function work as expected), basic profiling (timing and memory usage), and function-level version tracking, giving engineers a more complete picture of a function and its history without needing to check Git (or other VCS) or rely on integration/end-to-end tests.
+unittestplus combines traditional unit testing (does the function work as expected), basic profiling (timing and memory usage), and function-level version tracking, giving engineers a more complete picture of a function and its history without needing to check Git (or other VCS) or rely on integration/end-to-end tests.
 
 Each test produces a JSON-like log entry with structure similar to:
 
@@ -56,14 +56,14 @@ Complex types (dataframes, dicts etc.) are not stored completely in order to kep
 Just clone and run in any Python environment (3.7+). Please read requirements.txt for dependencies.
 
 ```bash
-git clone https://github.com/yourname/unit-test-plus.git
-cd unit-test-plus
+git clone https://github.com/yourname/unittestplus.git
+cd unittestplus
 python tests/test_core.py
 ```
 
 ## Philosophy
 
-unit-test-plus is for data scientists, ML engineers, and backend developers who want:
+unittestplus is for data scientists, ML engineers, and backend developers who want:
 
 - Fast feedback loops
 - Lightweight test instrumentation
