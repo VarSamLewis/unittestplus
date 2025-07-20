@@ -1,11 +1,10 @@
 [project]
-name = "bettertest"
+name = "unit_test_plus"
 version = "0.1.0"
 description = "Lightweight testing utility for Python functions with profiling and logging."
 readme = "README.md"
 requires-python = ">=3.7"
 license = { text = "MIT" }
-license-files = ["LICEN[CS]E*"]
 
 authors = [
   { name = "Sam Lewis", email = "samlewis1999.sl@gmail.com" }
@@ -18,3 +17,5 @@ Repository = "https://github.com/VarSamLewis/better_test"
 [build-system]
 requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
+
+
