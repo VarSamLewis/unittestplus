@@ -168,7 +168,7 @@ def _compare_outputs(a: Any, b: Any, max_items: int =3) -> bool:
         return False
 
 
-def bettertest(func: Callable,
+def unittest(func: Callable,
                inputs: Optional[List[Any]] = None,
                kwargs: Optional[Dict[str, Any]] = None,
                expected_output: Any = None,
