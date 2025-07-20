@@ -5,9 +5,7 @@ from difflib import SequenceMatcher
 from math import sqrt
 import statistics as stats
 import json
-from pprint import pprint
 import logging
-from log_test import write_json
 from core import KEY_TESTS, KEY_TEST_ID
 from log_test import _get_file_path, _load_json
 
@@ -59,6 +57,8 @@ def _similarity_score(s1: str, s2: str) -> List[List[float]]:
     score_3 = dot_product / (magnitude1 * magnitude2)
 
     return [[score_1, score_2, score_3]]
+
+
 
 # -------------------------------------------MAIN FUNCTIONS-------------------------------------------
 def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:

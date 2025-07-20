@@ -1,5 +1,4 @@
 ﻿import datetime
-from os import error
 import time
 import tracemalloc
 import json
@@ -24,6 +23,8 @@ KEY_TEST_ID = "test_id"
 KEY_FUNCTION = "function"
 KEY_FUNCTION_ID = "function_id"
 
+def _get_func_name(func: Union[str, Callable]) -> str:
+    return func if isinstance(func, str) else func.__name__
 
 def _execute_function(func: Callable, args: Optional[List[Any]] = None, kwargs: Optional[Dict[str, Any]] = None) -> Any:
     """Executes a function safely with given arguments."""
@@ -134,7 +135,7 @@ def _add_custom_metrics(
 
     return results
 
-def _compare_outputs(a, b, max_items=3):
+def _compare_outputs(a: Any, b: Any, max_items: int =3) -> bool:
     try:
         # If either is None but not both, return False
         if a is None and b is None:

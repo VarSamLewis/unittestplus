@@ -71,15 +71,17 @@ BetterTest is for data scientists, ML engineers, and backend developers who want
 - Non-determistic function behavior tracking (LLM outputs, random generators etc.)) 
 
 
-Tip: Use `output_match=False` as a flag to dig into failures programmatically.
-
 ## License
 
 MIT License
 
-To-Do
+## To-Do
 
+### Documentation and housekeeping
 - [ ] Add more examples and documentation
+- [ ] Add traceback to loggging
+
+### Publishing to PyPI
 - [ ] Prepare Your Package for PyPI
 - [ ] Generate PyPI API Token
 - [ ] Add the Token to GitHub Secrets
@@ -87,6 +89,10 @@ To-Do
 - [ ] Tag a Release to Trigger Deploy
 - [ ] Test on TestPyPI First
 - [ ] Validate on PyPI
+
+### Funcxtionality to add in the future
 - [ ] Add test suite class 
+- [ ] Add regression testing functionality (test new inputs against previous inputs))
 - [ ] Functions to rollback changes 
-- [ ] Mocks
+- [ ] Mocks/
+- [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)
