@@ -81,16 +81,11 @@ MIT License
 - [ ] Add more examples and documentation
 - [ ] Add traceback to loggging
 
-### Publishing to PyPI
-- [ ] Prepare Your Package for PyPI
-- [ ] Generate PyPI API Token
-- [ ] Add the Token to GitHub Secrets
-- [ ] Create GitHub Action Workflow for publishing
-- [ ] Tag a Release to Trigger Deploy
-- [ ] Test on TestPyPI First
+### Publishing to PyPi
 - [ ] Validate on PyPI
 
 ### Funcxtionality to add in the future
+- [ ] Add assert condition to unittestplus function to allow users to add conditions to test functions (will need a change to the JSON somehow)
 - [ ] Add test suite class 
 - [ ] Add regression testing functionality (test new inputs against previous inputs))
 - [ ] Functions to rollback changes 
