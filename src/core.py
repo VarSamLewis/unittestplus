@@ -167,6 +167,26 @@ def _compare_outputs(a: Any, b: Any, max_items: int =3) -> bool:
         logger.error(f"Error comparing outputs: {e}")
         return False
 
+def _simple_assert(assert_type: str, output: Any, assert_value: Any = None) -> bool:
+    """Performs a simple assertion based on assert_type."""
+    if assert_type == "equals":
+        return output == assert_value
+    elif assert_type == "not_equals":
+        return output != assert_value
+    elif assert_type == "greater_than":
+        return output > assert_value
+    elif assert_type == "less_than":
+        return output < assert_value
+    elif assert_type == "not_none":
+        return output is not None
+    elif assert_type == "is_none":
+        return output is None
+    elif assert_type == "in":
+        return output in assert_value
+    elif assert_type == "not_in":
+        return output not in assert_value
+    else:
+        raise ValueError(f"Unknown assert_type: {assert_type}")
 
 def unittestplus(func: Callable,
                inputs: Optional[List[Any]] = None,
@@ -175,7 +195,8 @@ def unittestplus(func: Callable,
                display: bool = True,
                alias: str = None,
                message: str = None,
-               custom_metrics: Optional[Dict[str, Union[str, Callable[..., Any]]]] = None) -> Dict[str, Any]:
+               custom_metrics: Optional[Dict[str, Union[str, Callable[..., Any]]]] = None,
+               assertion: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
@@ -203,6 +224,25 @@ def unittestplus(func: Callable,
         output_actual, exec_time, mem_used = _check_profile(func, args=args, kwargs=kwargs)
         error = None
         error_message = None
+
+        assertion_passed = None
+        if assertion:
+            if "type" not in assertion:
+                raise ValueError("If using 'assertion', it must include a 'type' key.")
+
+            assert_type = assertion["type"]
+            assert_value = assertion.get("value")  
+            try:
+                assertion_passed = _simple_assert(assert_type, output_actual, assert_value)
+                if assertion_passed:
+                    logger.info(
+                        f"Assertion passed: {assert_type} for output: {output_actual}")
+                else:
+                     logger.warning(
+                        f"Assertion failed: {assert_type} for output: {output_actual}")
+            except Exception as ae:
+                assertion_passed = False
+
     except Exception as e:
         output_actual = None
         exec_time = 0.0
@@ -211,10 +251,6 @@ def unittestplus(func: Callable,
         error_message = str(e)
 
    
-    """
-    if error is None:
-        _check_input_vs_output(output_actual, expected_output, display)
-    """
 
     log_entry = {
         KEY_FUNCTION: func_info[KEY_FUNCTION],
@@ -233,6 +269,8 @@ def unittestplus(func: Callable,
                 "expected_output": safe_serialise(expected_output),
                 "actual_output": safe_serialise(output_actual),
                 "output_match": _compare_outputs(output_actual, expected_output),
+                "assertion": assertion,
+                "assertion_passed": assertion_passed,
                 "execution_time_sec": round(exec_time, 3),
                 "peak_memory_kb": round(mem_used, 3),
                 "timestamp": datetime.datetime.utcnow().isoformat(),
