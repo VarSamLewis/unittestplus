@@ -1,0 +1,72 @@
+{
+    "function": "sum2int",
+    "function_id": "c8f1654dfba6e24b2f2cc873054b39c3",
+    "tests": [
+        {
+            "test_id": [],
+            "test_alias": "test_addition",
+            "test_message": "Basic addition of two positive integers",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 2,
+                    "arg1": 3
+                },
+                "args": [
+                    2,
+                    3
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": 5,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 5
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-27T10:01:09.796974",
+                "custom_metrics": {
+                    "is_even": "[Error evaluating metric: main.<locals>.<lambda>() got an unexpected keyword argument 'func']"
+                }
+            },
+            "definition": "def sum2int(a, b):        return a + b"
+        },
+        {
+            "test_id": 1,
+            "test_alias": "test_addition",
+            "test_message": "Basic addition of two positive integers",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 2,
+                    "arg1": 3
+                },
+                "args": [
+                    2,
+                    3
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": 5,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 5
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-07-27T10:05:19.890733",
+                "custom_metrics": {
+                    "is_even": "[Error evaluating metric: main.<locals>.<lambda>() got an unexpected keyword argument 'func']"
+                }
+            },
+            "definition": "def sum2int(a, b):        return a + b"
+        }
+    ]
+}

@@ -240,7 +240,7 @@ def unittestplus(func: Callable,
                 else:
                      logger.warning(
                         f"Assertion failed: {assert_type} for output: {output_actual}")
-            except Exception as ae:
+            except Exception as e:
                 assertion_passed = False
 
     except Exception as e:
@@ -249,6 +249,7 @@ def unittestplus(func: Callable,
         mem_used = 0.0
         error = True
         error_message = str(e)
+
 
    
 
@@ -291,4 +292,13 @@ def unittestplus(func: Callable,
 
 
 if __name__ == "__main__":
-    pass
+    def example_func(x, y): return x + y
+    unittestplus(
+        func=example_func,
+        inputs=[2, 3],
+        expected_output=5,
+        alias="Addition test",
+        message="Basic addition check",
+        assertion={"type": "equals", "value": 5},
+        display=True
+    )
