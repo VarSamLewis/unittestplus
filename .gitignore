@@ -19,5 +19,8 @@ venv/
 
 *.db
 
+# Test file I use
+example_usage.py
+
 # Requirements.txt 
 requirements.txt
