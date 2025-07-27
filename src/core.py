@@ -200,6 +200,8 @@ def unittestplus(func: Callable,
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
+    
+
     if inputs is None:
         args = []
     elif isinstance(inputs, (list, tuple)):
@@ -243,15 +245,14 @@ def unittestplus(func: Callable,
             except Exception as e:
                 assertion_passed = False
 
+            
     except Exception as e:
         output_actual = None
         exec_time = 0.0
         mem_used = 0.0
         error = True
         error_message = str(e)
-
-
-   
+        assertion_passed = None
 
     log_entry = {
         KEY_FUNCTION: func_info[KEY_FUNCTION],
