@@ -7,7 +7,12 @@ import statistics as stats
 import json
 import logging
 from core import KEY_TESTS, KEY_TEST_ID
-from log_test import _get_file_path, _load_json
+from log_test import _get_file_path, _load_json, _get_regression_file_path, _check_file_exists, _create_folder
+from core import unittestplus
+from contextlib import contextmanager
+import ast
+import inspect
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -58,7 +63,34 @@ def _similarity_score(s1: str, s2: str) -> List[List[float]]:
 
     return [[score_1, score_2, score_3]]
 
+@contextmanager
+def _custom_output_path(path):
+    original_get_file_path = globals().get('get_file_path')
+    globals()['get_file_path'] = lambda x: Path(path)
+    try:
+        yield
+    finally:
+        if original_get_file_path:
+            globals()['get_file_path'] = original_get_file_path
 
+
+def _rebuild_function_from_definition(definition: str, func_name: str) -> Callable:
+    """
+    Use AST parsing to rebuild function - more robust for malformed strings.
+    """
+    namespace = {}
+
+    try:
+        exec(definition, namespace)
+    except SyntaxError as e:
+        logger.error(f"Syntax error in function definition: {e}")
+        raise SyntaxError(f"Invalid function definition: {e}")
+
+    if func_name not in namespace:
+        return namespace[func_name]
+    else:
+        raise ValueError(
+            f"Function '{func_name}' not found in the provided definition.")
 
 # -------------------------------------------MAIN FUNCTIONS-------------------------------------------
 def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
@@ -350,6 +382,160 @@ def compare_io(func: Union[str, Callable],  test_id_1: int ,  test_id_2: int ) -
         print("Inputs and outputs are different.")
     
     return input_1, input_2, output_1, output_2
+
+
+def run_regression(func: str, inputs: List[Any], file_path: str = None) -> Dict[str, Any]:
+    """
+    Run regression tests for a specific function using provided inputs.
+    Tests the inputs against all existing test cases stored in the function's test file.
+    
+    Args:
+        func: Name of the function to test
+        inputs: List of input sets to test with
+        file_path: Optional path to regression file. Defaults to {func}_regression.json
+    
+    Returns:
+        Dictionary containing regression test results
+    """
+    # Get the function's original test file to load the function definition
+    func_test_file = _get_file_path(func)
+    
+    if not _check_file_exists(func_test_file):
+        raise FileNotFoundError(f"Function test file not found: {func_test_file}")
+    
+    # Load function definition
+    test_data = _load_json(func_test_file)
+    
+    if not test_data.get('tests') or not test_data['tests']:
+        raise ValueError(f"No tests found in {func_test_file}")
+    
+    # Get function definition from first test
+    first_test = test_data['tests'][0]
+    if 'definition' not in first_test:
+        raise ValueError(f"No function definition found in {func_test_file}")
+    
+    definition = first_test['definition']
+    test_func = _rebuild_function_from_definition(definition, func)
+    
+    # Determine regression file path
+    if file_path is None:
+        regression_file_path = _get_regression_file_path(func)
+    else:
+        regression_file_path = Path(file_path)
+    
+    # Get all existing tests from the original test file
+    existing_test_cases = []
+    for test in test_data['tests']:
+        test_case = {
+            'test_id': test['test_id'],
+            'args': test['metrics']['args'],
+            'kwargs': test['metrics']['kwargs'],
+            'expected_output': test['metrics']['expected_output']
+        }
+        existing_test_cases.append(test_case)
+    
+    # Run user inputs with all existing test cases
+    regression_results = {
+        'function': func,
+        'user_inputs': len(inputs),
+        'existing_tests': len(existing_test_cases),
+        'total_combinations': len(inputs) * len(existing_test_cases),
+        'results': []
+    }
+    
+    result_id = 1
+    
+    # For each user input
+    for input_idx, user_input in enumerate(inputs):
+        # Prepare user input
+        if isinstance(user_input, (list, tuple)):
+            user_args = list(user_input)
+            user_kwargs = {}
+        elif isinstance(user_input, dict):
+            user_args = user_input.get('args', [])
+            user_kwargs = user_input.get('kwargs', {})
+        else:
+            user_args = [user_input]
+            user_kwargs = {}
+        
+        # Test this user input against each existing test case
+        for test_case in existing_test_cases:
+            try:
+                # Run with user input
+                user_output = test_func(*user_args, **user_kwargs)
+                
+                # Run with original test case
+                original_output = test_func(*test_case['args'], **test_case['kwargs'])
+                
+                # Compare outputs
+                outputs_match = user_output == original_output
+                expected_match = user_output == test_case['expected_output']
+                
+                result = {
+                    'result_id': result_id,
+                    'user_input_index': input_idx + 1,
+                    'original_test_id': test_case['test_id'],
+                    'user_input': {
+                        'args': user_args,
+                        'kwargs': user_kwargs
+                    },
+                    'original_test': {
+                        'args': test_case['args'],
+                        'kwargs': test_case['kwargs'],
+                        'expected_output': test_case['expected_output']
+                    },
+                    'outputs': {
+                        'user_output': user_output,
+                        'original_output': original_output
+                    },
+                    'comparisons': {
+                        'user_vs_original': outputs_match,
+                        'user_vs_expected': expected_match
+                    },
+                    'success': True,
+                    'error': None
+                }
+                
+            except Exception as e:
+                result = {
+                    'result_id': result_id,
+                    'user_input_index': input_idx + 1,
+                    'original_test_id': test_case['test_id'],
+                    'user_input': {
+                        'args': user_args,
+                        'kwargs': user_kwargs
+                    },
+                    'original_test': {
+                        'args': test_case['args'],
+                        'kwargs': test_case['kwargs'],
+                        'expected_output': test_case['expected_output']
+                    },
+                    'success': False,
+                    'error': str(e)
+                }
+            
+            regression_results['results'].append(result)
+            result_id += 1
+    
+    # Save regression results
+    _create_folder()
+    with open(regression_file_path, 'w') as f:
+        json.dump(regression_results, f, indent=4)
+    
+    # Calculate summary stats
+    successful_results = [r for r in regression_results['results'] if r['success']]
+    
+    summary = {
+        'function': func,
+        'total_combinations': len(regression_results['results']),
+        'successful_runs': len(successful_results),
+        'errors': len(regression_results['results']) - len(successful_results),
+        'user_vs_original_matches': len([r for r in successful_results if r['comparisons']['user_vs_original']]),
+        'user_vs_expected_matches': len([r for r in successful_results if r['comparisons']['user_vs_expected']]),
+        'detailed_results': regression_results['results']
+    }
+    
+    return summary
 
 if __name__ == "__main__":
     pass

@@ -85,7 +85,7 @@ MIT License
 - [ ] Validate on PyPI
 
 ### Funcxtionality to add in the future
-- [ ] Add assert condition to unittestplus function to allow users to add conditions to test functions (will need a change to the JSON somehow)
+- [ ] Bytemap strings
 - [ ] Add test suite class 
 - [ ] Add regression testing functionality (test new inputs against previous inputs))
 - [ ] Functions to rollback changes 

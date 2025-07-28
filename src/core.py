@@ -94,11 +94,10 @@ def _check_profile(func: Callable, args: Optional[List[Any]] = None, kwargs: Opt
 def _clean_definition(def_str: str) -> str:
     """Cleans source code by removing comments and whitespace."""
     lines = def_str.split('\n')
-    filtered = [line for line in lines if not line.strip().startswith('#')]
-    joined = ''.join(filtered)
-    left_strip = joined.lstrip()
-    definition = left_strip.rstrip()
-    return definition 
+    filtered = [line.rstrip() for line in lines 
+                if line.strip() and not line.strip().startswith('#')]
+    definition = '\n'.join(filtered)
+    return definition
 
 def _add_custom_metrics(
     func: Callable,
@@ -293,7 +292,8 @@ def unittestplus(func: Callable,
 
 
 if __name__ == "__main__":
-    def example_func(x, y): return x + y
+    def example_func(x, y): 
+        return x + y
     unittestplus(
         func=example_func,
         inputs=[2, 3],
