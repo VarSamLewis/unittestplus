@@ -9,8 +9,18 @@ on:
 
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '**.rst'
+      - '**.txt'
+      - 'docs/**'
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '**.rst'
+      - '**.txt'
+      - 'docs/**'
 
 jobs:
   build:

@@ -80,14 +80,14 @@ MIT License
 ### Documentation and housekeeping
 - [ ] Add more examples and documentation
 - [ ] Add traceback to loggging
+- [ ] Refactor long functions
 
 ### Publishing to PyPi
 - [ ] Validate on PyPI
 
 ### Funcxtionality to add in the future
-- [ ] Add assert condition to unittestplus function to allow users to add conditions to test functions (will need a change to the JSON somehow)
+- [ ] Bytemap strings
 - [ ] Add test suite class 
-- [ ] Add regression testing functionality (test new inputs against previous inputs))
 - [ ] Functions to rollback changes 
 - [ ] Mocks
 - [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)

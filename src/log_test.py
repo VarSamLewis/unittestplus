@@ -36,7 +36,17 @@ def _create_folder():
     if not folder_path.exists():
         folder_path.mkdir(parents=True, exist_ok=True)
 
-def write_json(data):
+
+def _get_regression_file_path(func: str) -> Path:
+    """
+    Get the regression file path for the given function inside ./func/.
+    """
+    folder = Path.cwd() / "func"
+    file_path = folder / f"{func}_regression.json"
+    return file_path
+
+
+def write_json(data, file_path = None):
     """
     Write a test entry to a JSON file named after the function_id in better_test/.
     If the file doesn't exist, create it with initial structure.
@@ -44,7 +54,12 @@ def write_json(data):
     """ 
     _create_folder()  # Ensure the folder exists
     #combined_key = f"{data['function']}_{data['function_id']}"
-    file_path = _get_file_path(data['function'])
+    if file_path is None:
+        # If no file path is provided, derive it from the function name
+        file_path = _get_file_path(data['function'])
+    else:
+        # Ensure the provided file path is a Path object
+        file_path = Path(file_path)
     
 
     if not _check_file_exists(file_path):
