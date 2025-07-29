@@ -80,6 +80,7 @@ MIT License
 ### Documentation and housekeeping
 - [ ] Add more examples and documentation
 - [ ] Add traceback to loggging
+- [ ] Refactor long functions
 
 ### Publishing to PyPi
 - [ ] Validate on PyPI
@@ -87,7 +88,6 @@ MIT License
 ### Funcxtionality to add in the future
 - [ ] Bytemap strings
 - [ ] Add test suite class 
-- [ ] Add regression testing functionality (test new inputs against previous inputs))
 - [ ] Functions to rollback changes 
 - [ ] Mocks
 - [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)

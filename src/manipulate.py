@@ -72,25 +72,117 @@ def _custom_output_path(path):
     finally:
         if original_get_file_path:
             globals()['get_file_path'] = original_get_file_path
-
-
-def _rebuild_function_from_definition(definition: str, func_name: str) -> Callable:
+def _clean_and_format_definition(definition: str) -> str:
     """
-    Use AST parsing to rebuild function - more robust for malformed strings.
+    Clean and format a function definition string to fix common issues.
+    Specifically handles the format with spaces instead of newlines.
     """
-    namespace = {}
+    if not definition.strip():
+        raise ValueError("Empty function definition")
+    
+    # Step 1: Handle escaped quotes
+    cleaned = definition.replace('\\"', '"').replace("\\'", "'")
+    
+    # Step 2: Your specific format analysis
+    # Looking at your definition: "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+    
+    if '\n' not in cleaned:
+        # Split the definition into logical parts
+        parts = []
+        current_part = ""
+        i = 0
+        
+        while i < len(cleaned):
+            # Look for the pattern of multiple spaces (4+ spaces indicates indentation level)
+            if cleaned[i:i+8] == '        ':  # 8 spaces = new line at base level
+                if current_part.strip():
+                    parts.append(current_part.strip())
+                current_part = ""
+                i += 8
+                # Skip any additional spaces
+                while i < len(cleaned) and cleaned[i] == ' ':
+                    i += 1
+            elif cleaned[i:i+12] == '            ':  # 12 spaces = deeper indentation
+                if current_part.strip():
+                    parts.append(current_part.strip())
+                current_part = ""
+                i += 12
+                # Skip any additional spaces
+                while i < len(cleaned) and cleaned[i] == ' ':
+                    i += 1
+            else:
+                current_part += cleaned[i]
+                i += 1
+        
+        # Add the last part
+        if current_part.strip():
+            parts.append(current_part.strip())
+        
+        # Now reconstruct with proper Python indentation
+        if parts:
+            formatted_lines = []
+            
+            # First part should be the function definition
+            if parts[0].startswith('def '):
+                formatted_lines.append(parts[0])
+                
+                # Process remaining parts
+                for part in parts[1:]:
+                    if part.startswith('if ') or part.startswith('elif ') or part.startswith('else:') or \
+                       part.startswith('for ') or part.startswith('while ') or part.startswith('try:') or \
+                       part.startswith('except ') or part.startswith('finally:'):
+                        # Control structure - base indentation
+                        formatted_lines.append('    ' + part)
+                    elif part.startswith('return ') or part.startswith('raise ') or part.startswith('pass'):
+                        # Check if this should be nested (after an if/else) or at base level
+                        # Look at the previous line to determine indentation
+                        if formatted_lines and any(formatted_lines[-1].strip().startswith(kw) for kw in ['if ', 'elif ', 'else:', 'for ', 'while ', 'try:', 'except ', 'finally:']):
+                            # This should be indented further (nested under control structure)
+                            formatted_lines.append('        ' + part)
+                        else:
+                            # This is at function body level
+                            formatted_lines.append('    ' + part)
+                    else:
+                        # Default to function body indentation
+                        formatted_lines.append('    ' + part)
+            
+            cleaned = '\n'.join(formatted_lines)
+    
+    return cleaned
 
+
+def _rebuild_function_from_definition(definition: str, func_name: str):
+    """
+    Rebuild a function from its string definition with proper error handling.
+    """
     try:
-        exec(definition, namespace)
+        # Clean up the definition string
+        cleaned_definition = _clean_and_format_definition(definition)
+        
+        # Debug: print the cleaned definition
+        print(f"Debug - Cleaned definition for {func_name}:")
+        print(repr(cleaned_definition))
+        print("Formatted:")
+        print(cleaned_definition)
+        print("-" * 50)
+        
+        # Create namespace for execution
+        namespace = {}
+        
+        # Execute the function definition
+        exec(cleaned_definition, namespace)
+        
+        # Return the function
+        if func_name in namespace:
+            return namespace[func_name]
+        else:
+            raise ValueError(f"Function '{func_name}' not found in definition")
+            
     except SyntaxError as e:
-        logger.error(f"Syntax error in function definition: {e}")
-        raise SyntaxError(f"Invalid function definition: {e}")
+        raise SyntaxError(f"Invalid function definition for '{func_name}': {e}")
+    except Exception as e:
+        raise RuntimeError(f"Error rebuilding function '{func_name}': {e}")
 
-    if func_name not in namespace:
-        return namespace[func_name]
-    else:
-        raise ValueError(
-            f"Function '{func_name}' not found in the provided definition.")
 
 # -------------------------------------------MAIN FUNCTIONS-------------------------------------------
 def clear_tests(func: Union[str, Callable], confirm_callback: Optional[Callable[[], bool]] = None) -> None:
@@ -384,7 +476,7 @@ def compare_io(func: Union[str, Callable],  test_id_1: int ,  test_id_2: int ) -
     return input_1, input_2, output_1, output_2
 
 
-def run_regression(func: str, inputs: List[Any], file_path: str = None) -> Dict[str, Any]:
+def run_regression(func: str, inputs: List[Any], file_path: str = None, display :bool = True) -> Dict[str, Any]:
     """
     Run regression tests for a specific function using provided inputs.
     Tests the inputs against all existing test cases stored in the function's test file.
@@ -397,54 +489,79 @@ def run_regression(func: str, inputs: List[Any], file_path: str = None) -> Dict[
     Returns:
         Dictionary containing regression test results
     """
-    # Get the function's original test file to load the function definition
-    func_test_file = _get_file_path(func)
-    
-    if not _check_file_exists(func_test_file):
-        raise FileNotFoundError(f"Function test file not found: {func_test_file}")
-    
-    # Load function definition
-    test_data = _load_json(func_test_file)
-    
-    if not test_data.get('tests') or not test_data['tests']:
-        raise ValueError(f"No tests found in {func_test_file}")
-    
-    # Get function definition from first test
-    first_test = test_data['tests'][0]
-    if 'definition' not in first_test:
-        raise ValueError(f"No function definition found in {func_test_file}")
-    
-    definition = first_test['definition']
-    test_func = _rebuild_function_from_definition(definition, func)
-    
-    # Determine regression file path
-    if file_path is None:
-        regression_file_path = _get_regression_file_path(func)
-    else:
-        regression_file_path = Path(file_path)
-    
-    # Get all existing tests from the original test file
+    # Initialize variables at function scope to avoid UnboundLocalError
+    test_func = None
+    regression_file_path = None
     existing_test_cases = []
-    for test in test_data['tests']:
-        test_case = {
-            'test_id': test['test_id'],
-            'args': test['metrics']['args'],
-            'kwargs': test['metrics']['kwargs'],
-            'expected_output': test['metrics']['expected_output']
+    test_data = None
+    
+    try:
+        # Get the function's original test file to load the function definition
+        func_test_file = _get_file_path(func)
+    
+        if not _check_file_exists(func_test_file):
+            raise FileNotFoundError(f"Function test file not found: {func_test_file}")
+    
+        # Load function definition
+        test_data = _load_json(func_test_file)
+    
+        if not test_data.get('tests') or not test_data['tests']:
+            raise ValueError(f"No tests found in {func_test_file}")
+    
+        # Get function definition from first test
+        first_test = test_data['tests'][0]
+        if 'definition' not in first_test:
+            raise ValueError(f"No function definition found in {func_test_file}")
+    
+        definition = first_test['definition']
+        test_func = _rebuild_function_from_definition(definition, func)
+    
+        # Determine regression file path
+        if file_path is None:
+            regression_file_path = _get_regression_file_path(func)
+        else:
+            regression_file_path = Path(file_path)
+            
+    except Exception as e:
+        # Fixed logging error - use proper string formatting
+        logger.error("Error loading function definition: %s", str(e))
+        return {
+            'function': func,
+            'error': f"Failed to load function definition: {str(e)}",
+            'success': False
         }
-        existing_test_cases.append(test_case)
+
+    try:
+        # Get all existing tests from the original test file
+        for test in test_data['tests']:
+            test_case = {
+                'test_id': test['test_id'],
+                'args': test['metrics']['args'],
+                'kwargs': test['metrics']['kwargs'],
+                'expected_output': test['metrics']['expected_output']
+            }
+            existing_test_cases.append(test_case)
     
-    # Run user inputs with all existing test cases
-    regression_results = {
-        'function': func,
-        'user_inputs': len(inputs),
-        'existing_tests': len(existing_test_cases),
-        'total_combinations': len(inputs) * len(existing_test_cases),
-        'results': []
-    }
+        # Run user inputs with all existing test cases
+        regression_results = {
+            'function': func,
+            'user_inputs': len(inputs),
+            'existing_tests': len(existing_test_cases),
+            'total_combinations': len(inputs) * len(existing_test_cases),
+            'results': []
+        }
     
-    result_id = 1
-    
+        result_id = 1
+        
+    except Exception as e:
+        # Fixed logging error
+        logger.error("Error processing test cases: %s", str(e))
+        return {
+            'function': func,
+            'error': f"Failed to process test cases: {str(e)}",
+            'success': False
+        }
+
     # For each user input
     for input_idx, user_input in enumerate(inputs):
         # Prepare user input
@@ -517,25 +634,33 @@ def run_regression(func: str, inputs: List[Any], file_path: str = None) -> Dict[
             regression_results['results'].append(result)
             result_id += 1
     
-    # Save regression results
-    _create_folder()
-    with open(regression_file_path, 'w') as f:
-        json.dump(regression_results, f, indent=4)
+    # Save regression results (only if we have a valid path)
+    if regression_file_path:
+        try:
+            _create_folder()
+            with open(regression_file_path, 'w') as f:
+                json.dump(regression_results, f, indent=4)
+        except Exception as e:
+            logger.error("Error saving regression results: %s", str(e))
     
     # Calculate summary stats
     successful_results = [r for r in regression_results['results'] if r['success']]
     
     summary = {
-        'function': func,
-        'total_combinations': len(regression_results['results']),
-        'successful_runs': len(successful_results),
-        'errors': len(regression_results['results']) - len(successful_results),
-        'user_vs_original_matches': len([r for r in successful_results if r['comparisons']['user_vs_original']]),
-        'user_vs_expected_matches': len([r for r in successful_results if r['comparisons']['user_vs_expected']]),
-        'detailed_results': regression_results['results']
-    }
+            'function': func,
+            'total_combinations': len(regression_results['results']),
+            'successful_runs': len(successful_results),
+            'errors': len(regression_results['results']) - len(successful_results),
+            'user_vs_original_matches': len([r for r in successful_results if r['comparisons']['user_vs_original']]),
+            'user_vs_expected_matches': len([r for r in successful_results if r['comparisons']['user_vs_expected']])
+        }
+
+    if display:
+        print(json.dumps(summary, indent=2))
+
     
     return summary
+
 
 if __name__ == "__main__":
     pass
