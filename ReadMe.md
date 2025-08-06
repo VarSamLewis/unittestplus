@@ -233,7 +233,7 @@ MIT License
 
 ### Documentation and housekeeping
 - [ ] Add more examples and documentation
-- [ ] Add traceback to loggging
+- [ ] Add traceback to logging
 - [ ] Refactor long functions
 
 ### Publishing to PyPi

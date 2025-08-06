@@ -72,6 +72,7 @@ def _custom_output_path(path):
     finally:
         if original_get_file_path:
             globals()['get_file_path'] = original_get_file_path
+
 def _clean_and_format_definition(definition: str) -> str:
     """
     Clean and format a function definition string to fix common issues.
@@ -80,21 +81,17 @@ def _clean_and_format_definition(definition: str) -> str:
     if not definition.strip():
         raise ValueError("Empty function definition")
     
-    # Step 1: Handle escaped quotes
     cleaned = definition.replace('\\"', '"').replace("\\'", "'")
     
-    # Step 2: Your specific format analysis
-    # Looking at your definition: "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
-    
+
     if '\n' not in cleaned:
-        # Split the definition into logical parts
         parts = []
         current_part = ""
         i = 0
         
         while i < len(cleaned):
-            # Look for the pattern of multiple spaces (4+ spaces indicates indentation level)
-            if cleaned[i:i+8] == '        ':  # 8 spaces = new line at base level
+
+            if cleaned[i:i+8] == '        ': 
                 if current_part.strip():
                     parts.append(current_part.strip())
                 current_part = ""
@@ -113,12 +110,11 @@ def _clean_and_format_definition(definition: str) -> str:
             else:
                 current_part += cleaned[i]
                 i += 1
-        
-        # Add the last part
+
         if current_part.strip():
             parts.append(current_part.strip())
         
-        # Now reconstruct with proper Python indentation
+
         if parts:
             formatted_lines = []
             
@@ -134,8 +130,6 @@ def _clean_and_format_definition(definition: str) -> str:
                         # Control structure - base indentation
                         formatted_lines.append('    ' + part)
                     elif part.startswith('return ') or part.startswith('raise ') or part.startswith('pass'):
-                        # Check if this should be nested (after an if/else) or at base level
-                        # Look at the previous line to determine indentation
                         if formatted_lines and any(formatted_lines[-1].strip().startswith(kw) for kw in ['if ', 'elif ', 'else:', 'for ', 'while ', 'try:', 'except ', 'finally:']):
                             # This should be indented further (nested under control structure)
                             formatted_lines.append('        ' + part)
