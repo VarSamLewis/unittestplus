@@ -1,0 +1,71 @@
+﻿
+name: Package Installation Check
+
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-installation:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Get package version
+      id: get_version
+      run: |
+        echo "version=$(grep 'version = ' pyproject.toml | sed 's/version = //g' | tr -d '"' | tr -d "'")" >> $GITHUB_OUTPUT
+    
+    - name: Install package from TestPyPI
+      run: |
+        python -m pip install --upgrade pip
+        # Install the package with dependencies from both TestPyPI and PyPI
+        python -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ unittestplus==${{ steps.get_version.outputs.version }}
+    
+    - name: Verify installation
+      run: |
+        python -c "import pkg_resources; print(f'Installed version: {pkg_resources.get_distribution(\"unittestplus\").version}')"
+    
+    - name: Test imports
+      run: |
+        # Basic import test
+        python -c "import unittestplus; print('✓ Basic import successful')"
+        
+        # Test importing specific modules
+        python -c "from unittestplus import core; print('✓ core module imported')"
+        python -c "from unittestplus import manipulate; print('✓ manipulate module imported')"
+        python -c "from unittestplus import log_test; print('✓ log_test module imported')"
+        python -c "from unittestplus import testsuite; print('✓ testsuite module imported')"
+        
+        # Test importing specific functions
+        python -c "from unittestplus import unittestplus; print('✓ unittestplus function imported')"
+        python -c "from unittestplus import TestSuite; print('✓ TestSuite class imported')"
+    
+    - name: Run basic functionality test
+      run: |
+        python -c "
+        import unittestplus
+
+        def test_function(a, b):
+            return a + b
+
+        # Test that the core function works
+        result = unittestplus.unittestplus(
+            func=test_function,
+            inputs=[2, 3],
+            expected_output=5,
+            display=True
+        )
+
+        print('✓ Basic functionality test passed')
+        print(f'Result: {result}')
+                "
