@@ -55,14 +55,10 @@ jobs:
     
     - name: Test with unittest
       run: |
-        # Try to discover tests in the tests directory
-        if [ -d "tests" ]; then
-          python -m unittest discover -s tests -p "test_*.py"
-        # If no tests directory, try running the testsuite directly
-        elif [ -f "src/unittestplus/testsuite.py" ]; then
-          python -m unittestplus.testsuite
+        if [ -f "tests/run_tests.py" ]; then
+          python tests/run_tests.py
         else
-          echo "No tests found!"
+          echo "Test script not found at tests/run_tests.py!"
           exit 1
         fi
     
