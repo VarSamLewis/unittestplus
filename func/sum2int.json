@@ -76,6 +76,2394 @@
                 "timestamp": "2025-07-07T09:46:05.724278"
             },
             "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 4,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:34:19.289352",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 5,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:34:55.758234",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 6,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:35:23.005330",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 7,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:37:56.959528",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 8,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:48:14.434904",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 9,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:49:11.892993",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 10,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:59:32.157380",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 11,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T19:59:49.197963",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 12,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:00:19.973515",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 13,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:00:19.989025",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 14,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:16:48.408190",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 15,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:16:48.424650",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 16,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:17:15.006516",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 17,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:17:15.023077",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 18,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:17:15.042637",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 19,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:17:15.056385",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 20,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:19:42.772715",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 21,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:19:42.791744",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 22,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:19:42.807319",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 23,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:19:42.823572",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 24,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:20:04.630370",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 25,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:20:04.648919",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 26,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:20:04.665441",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 27,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:20:04.680817",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 28,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:21:02.319349",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 29,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:21:02.335481",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 30,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:21:02.349315",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 31,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:21:02.365137",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 32,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:32:29.750168",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 33,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:32:29.768218",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 34,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:32:29.789260",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 35,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:32:29.808321",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 36,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.587794",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 37,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.608536",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 38,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.628127",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 39,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.646307",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 40,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.665603",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 41,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.691664",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 42,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 191.11,
+                "timestamp": "2025-08-09T20:36:48.720847",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 43,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.741685",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 44,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.759640",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 45,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.779563",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 46,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.800369",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 47,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:36:48.820158",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 48,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.865678",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 49,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.881361",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 50,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.902399",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 51,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.920999",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 52,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.941230",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 53,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:31.954718",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 54,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 247.345,
+                "timestamp": "2025-08-09T20:38:31.988529",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 55,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:32.007072",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 56,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:32.024201",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 57,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:32.044440",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 58,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "If using 'assertion', it must include a 'type' key.",
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": null,
+                "output_match": false,
+                "assertion": "assert output == 3",
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:32.056485",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 59,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:38:32.079666",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 60,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.408811",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 61,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.427276",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 62,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.453016",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 63,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.474230",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 64,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.501287",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 65,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.525316",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 66,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.543960",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 67,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 304.324,
+                "timestamp": "2025-08-09T20:42:59.583243",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 68,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.605339",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 69,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.638988",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 70,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.661260",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 71,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.680506",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 72,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.702802",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 73,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:42:59.721828",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 74,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.473509",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 75,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.497572",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 76,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.525968",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 77,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.549259",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 78,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.570615",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 79,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.593015",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 80,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.612469",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 81,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 374.583,
+                "timestamp": "2025-08-09T20:52:14.660467",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 82,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.687940",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 83,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.709644",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 84,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.732934",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 85,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.765311",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 86,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.794299",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
+        },
+        {
+            "test_id": 87,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-08-09T20:52:14.819882",
+                "custom_metrics": {}
+            },
+            "definition": "def sum2int(int1: int, int2: int) -> int:        if int1 is None or int2 is None:            raise ValueError(\"Both inputs must be provided\")        return int1 + int2"
         }
     ]
 }
