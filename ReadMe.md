@@ -232,16 +232,15 @@ MIT License
 ## To-Do
 
 ### Documentation and housekeeping
-- [ ] Add more examples and documentation
 - [ ] Add traceback to logging
 - [ ] Refactor long functions
+- [ ] Split up modules to prevent circular imports
 
 ### Publishing to PyPi
 - [ ] Validate on PyPI
 
-### Funcxtionality to add in the future
+### Functionality to add in the future
 - [ ] Bytemap strings
-- [ ] Add test suite class 
 - [ ] Functions to rollback changes 
 - [ ] Mocks
 - [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)

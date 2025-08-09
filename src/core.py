@@ -8,10 +8,10 @@ import hashlib
 import logging
 import pandas as pd
 import numpy as np
-
 from typing import Callable, Any, Optional, Dict, List, Tuple, Union
 from serialise import safe_serialise
-from log_test import write_json, _get_file_path, _load_json  # Use absolute import in real projects
+from log_test import write_json, _get_file_path, _load_json
+from manipulate import _rebuild_function_from_definition
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -199,7 +199,6 @@ def unittestplus(func: Callable,
     """
     Executes a function with test inputs, compares result to expected output, and logs execution info.
     """
-    
 
     if inputs is None:
         args = []
@@ -208,14 +207,39 @@ def unittestplus(func: Callable,
     else:
         args = [inputs]
 
+    original_definition = None
+    if isinstance(func, str):
+        file_path: Path = _get_file_path(func)
+        if not file_path.exists():
+            print(f"No file found for function '{func}'.")
+            return None
+        else:
+            data = _load_json(file_path)
+            tests = data.get("tests", [])
+            if len(tests) == 0:
+                logger.error(f"No function definition provided")
+                return None
+
+            latest_test = tests[-1]
+            original_definition = latest_test.get("definition", "")
+            func = _rebuild_function_from_definition(original_definition, func)
+
     kwargs = kwargs or {}
     # Serialize all inputs and outputs for logging
     combined_inputs = {f"arg{i}": safe_serialise(arg) for i, arg in enumerate(args)}
     combined_inputs.update({k: safe_serialise(v) for k, v in kwargs.items()})
     
 
-    code = inspect.getsource(func)
-    code_clean = _clean_definition(code)
+    # Use original definition if we have it, otherwise try to get source
+    if original_definition:
+        code_clean = original_definition
+    else:
+        try:
+            code = inspect.getsource(func)
+            code_clean = _clean_definition(code)
+        except OSError:
+            # If we can't get the source (dynamically created function), use repr or a placeholder
+            code_clean = f"# Dynamically created function\n{func.__name__}"
     func_info = _gen_func_identity(func)
     test_id = _gen_test_identity(func)
     

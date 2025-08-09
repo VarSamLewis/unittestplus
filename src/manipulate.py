@@ -6,9 +6,8 @@ from math import sqrt
 import statistics as stats
 import json
 import logging
-from core import KEY_TESTS, KEY_TEST_ID
 from log_test import _get_file_path, _load_json, _get_regression_file_path, _check_file_exists, _create_folder
-from core import unittestplus
+import core
 from contextlib import contextmanager
 import ast
 import inspect
@@ -17,6 +16,9 @@ import inspect
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+KEY_TESTS = "tests"  # Duplicate from core
+KEY_TEST_ID = "test_id"  # Duplicate from core
 
 # -------------------------------------------HELPER FUNCTIONS-------------------------------------------
 def _diff_json(test_1: Dict[str, Any], test_2: Dict[str, Any], path: str = "") -> List[Dict[str, Any]]:
@@ -154,11 +156,11 @@ def _rebuild_function_from_definition(definition: str, func_name: str):
         cleaned_definition = _clean_and_format_definition(definition)
         
         # Debug: print the cleaned definition
-        print(f"Debug - Cleaned definition for {func_name}:")
-        print(repr(cleaned_definition))
-        print("Formatted:")
-        print(cleaned_definition)
-        print("-" * 50)
+        # print(f"Debug - Cleaned definition for {func_name}:")
+        # print(repr(cleaned_definition))
+        # print("Formatted:")
+        # print(cleaned_definition)
+        # print("-" * 50)
         
         # Create namespace for execution
         namespace = {}
