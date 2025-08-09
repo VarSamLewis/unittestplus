@@ -64,13 +64,14 @@ jobs:
     
     - name: Generate coverage report
       run: |
-        if [ -d "tests" ]; then
-          coverage run -m unittest discover -s tests -p "test_*.py"
-        elif [ -f "src/unittestplus/testsuite.py" ]; then
-          coverage run -m unittestplus.testsuite
+        if [ -f "tests/run_tests.py" ]; then
+          coverage run tests/run_tests.py
+          coverage report
+          coverage xml
+        else
+          echo "Test script not found at tests/run_tests.py!"
+          exit 1
         fi
-        coverage report
-        coverage xml
     
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
