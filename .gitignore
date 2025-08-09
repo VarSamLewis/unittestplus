@@ -7,6 +7,10 @@ __pycache__/
 # VSCode settings (if you're using it)
 .vs/
 
+build/lib
+
+tests/
+
 dist/
 unittestplus.egg-info
 
