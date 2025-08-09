@@ -10,6 +10,11 @@ authors = [
   { name = "Sam Lewis", email = "samlewis1999.sl@gmail.com" }
 ]
 
+dependencies = [
+  "pandas",
+  "numpy"
+]
+
 [project.urls]
 Homepage = "https://github.com/VarSamLewis/better_test"
 Repository = "https://github.com/VarSamLewis/better_test"
@@ -17,5 +22,9 @@ Repository = "https://github.com/VarSamLewis/better_test"
 [build-system]
 requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["unittestplus"]
+package-dir = {"" = "src"}
 
 

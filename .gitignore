@@ -9,7 +9,6 @@ __pycache__/
 
 build/lib
 
-tests/
 
 dist/
 unittestplus.egg-info
