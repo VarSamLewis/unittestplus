@@ -1,4 +1,4 @@
-from core import unittestplus
+from .core import unittestplus
 
 KEY_TESTS = "tests"
 KEY_TEST_ID = "test_id"

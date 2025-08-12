@@ -9,9 +9,9 @@ import logging
 import pandas as pd
 import numpy as np
 from typing import Callable, Any, Optional, Dict, List, Tuple, Union
-from serialise import safe_serialise
-from log_test import write_json, _get_file_path, _load_json
-from manipulate import _rebuild_function_from_definition
+from .serialise import safe_serialise
+from .log_test import write_json, _get_file_path, _load_json
+from .manipulate import _rebuild_function_from_definition
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

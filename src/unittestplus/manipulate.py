@@ -6,7 +6,7 @@ from math import sqrt
 import statistics as stats
 import json
 import logging
-from log_test import _get_file_path, _load_json, _get_regression_file_path, _check_file_exists, _create_folder
+from .log_test import _get_file_path, _load_json, _get_regression_file_path, _check_file_exists, _create_folder
 from .utils import _rebuild_function_from_definition
 from . import core 
 from contextlib import contextmanager
