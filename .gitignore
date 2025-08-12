@@ -7,7 +7,7 @@ __pycache__/
 # VSCode settings (if you're using it)
 .vs/
 
-build/lib
+build/
 
 
 dist/
@@ -25,5 +25,4 @@ venv/
 # Test file I use
 example_usage.py
 
-# Requirements.txt 
-requirements.txt
+
