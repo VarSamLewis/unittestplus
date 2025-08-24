@@ -86,13 +86,10 @@ def _rebuild_function_from_definition(definition: str, func_name: str):
         # print(cleaned_definition)
         # print("-" * 50)
         
-        # Create namespace for execution
         namespace = {}
         
-        # Execute the function definition
         exec(cleaned_definition, namespace)
-        
-        # Return the function
+
         if func_name in namespace:
             return namespace[func_name]
         else:

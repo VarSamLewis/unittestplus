@@ -240,7 +240,5 @@ MIT License
 - [ ] Validate on PyPI
 
 ### Functionality to add in the future
-- [ ] Bytemap strings
-- [ ] Functions to rollback changes 
-- [ ] Mocks
+- [ ] Bytemap strings 
 - [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)
