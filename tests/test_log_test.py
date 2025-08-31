@@ -8,7 +8,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-import log_test
+from unittestplus import log_test
 
 FUNC_DIR = Path.cwd() / "func"
 DUMMY_FUNC_FILE = Path(FUNC_DIR) / "dummy_func_log_test.json"

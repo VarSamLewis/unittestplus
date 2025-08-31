@@ -4,13 +4,14 @@ import unittest
 
 import numpy as np
 import pandas as pd
+import polars as pl
 
 # Adjust path for local import if needed
 sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-import serialise
+from unittestplus import serialise
 
 
 class TestSafeSerialise(unittest.TestCase):

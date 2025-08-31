@@ -12,7 +12,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-import core
+from unittestplus import core
 
 
 def dummy_func_core(a, b):
