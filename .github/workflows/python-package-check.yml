@@ -21,7 +21,7 @@ jobs:
     - name: Get package version
       id: get_version
       run: |
-        echo "version=$(grep 'version = ' pyproject.toml | sed 's/version = //g' | tr -d '"' | tr -d "'")" >> $GITHUB_OUTPUT
+        echo "version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")" >> $GITHUB_OUTPUT
     
     - name: Install dependencies and package from TestPyPI
       run: |
