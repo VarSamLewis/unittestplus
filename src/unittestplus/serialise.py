@@ -1,6 +1,7 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 import polars as pl
+
 
 def safe_serialise(obj, max_items=3):
     if isinstance(obj, pd.DataFrame):

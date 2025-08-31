@@ -25,7 +25,7 @@ on:
       - .gitignore
 jobs:
   build:
-
+    name: Build-Lint-Test
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -33,48 +33,29 @@ jobs:
         python-version: ["3.11"]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pandas polars numpy coverage
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        # Install the package in development mode
-        pip install -e .
+      - uses: actions/checkout@v4
 
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies from pyproject.toml
+        run: |
+          python -m pip install --upgrade pip
+          pip install .[dev]
+          # If you have dev dependencies in [project.optional-dependencies], use .[dev]
+          # Otherwise, pip will install all from [project] dependencies
+
+      - name: Check formatting with black
+        run: black .
+
+      - name: Lint with ruff
+        run: ruff check --fix
+
+      - name: Test with unittest
+        run: python -m unittest discover -s tests -p "test_*.py"
     
-    - name: Test with unittest
-      run: |
-        if [ -f "tests/run_tests.py" ]; then
-          python tests/run_tests.py
-        else
-          echo "Test script not found at tests/run_tests.py!"
-          exit 1
-        fi
-    
-    - name: Generate coverage report
-      run: |
-        if [ -f "tests/run_tests.py" ]; then
-          coverage run tests/run_tests.py
-          coverage report
-          coverage xml
-        else
-          echo "Test script not found at tests/run_tests.py!"
-          exit 1
-        fi
-    
-    - name: Upload coverage report
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverage-report
-        path: coverage.xml
+      - name: Type check with mypy
+        run: mypy src/ --exclude src/unittestplus/example_usage.py
+

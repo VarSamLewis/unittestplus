@@ -32,7 +32,6 @@ Clone and run in any Python environment (3.7+). See `requirements.txt` for depen
 ```bash
 git clone https://github.com/yourname/unittestplus.git
 cd unittestplus
-python tests/run_tests.py
 ```
 
 ## Philosophy
@@ -110,7 +109,7 @@ Complex types (dataframes, dicts, etc.) are stored as metadata (type, length, sa
 
 ## User-Facing API
 
-### 1. Logging and Running Tests
+### Core Function
 
 **Function:** `unittestplus`
 
@@ -119,109 +118,69 @@ Runs a function with given inputs and logs the result.
 ```python
 unittestplus(
     func,                # Function to test
-    inputs=None,         # List/tuple of positional arguments
-    kwargs=None,         # Dict of keyword arguments
-    expected_output=None,
+    inputs=None,         # Positional arguments
+    kwargs=None,         # Keyword arguments
+    expected_output=None,# Expected output to compare against
+    display=True,        # Print/log test result summary
+    alias=None,          # Alias for this test
+    message=None,        # Message/description for this test
+    custom_metrics=None, # Custom metrics to evaluate
+    assertion=None,      # Assertion dict, e.g. {"type": "equals", "value": 5}
+    verbose=False        # If True, show detailed logs; if False, suppress logs
+) 
+```
+
+---
+### All UserFacing API Function Examples 
+
+```python
+from unittestplus.core import unittestplus
+from unittestplus.manipulate import run_regression
+from unittestplus.testsuite import TestSuite
+
+# --- Simple function to test ---
+def add(a, b):
+    return a + b
+
+# --- Run unittestplus ---
+result = unittestplus(
+    func=add,
+    inputs=[2, 3],
+    expected_output=5,
+    alias="Addition test",
+    message="Basic addition check",
+    assertion={"type": "equals", "value": 5},
     display=True,
-    alias=None,
-    message=None,
-    custom_metrics=None, # Dict of metric functions or expressions
-    assertion=None       # Dict, e.g. {"type": "equals", "value": 5}
 )
+
+# --- Run regression ---
+regression_result = run_regression(
+    func="add",  # Name as string for regression
+    inputs=[[2, 3], [10, 20], [0, 0]],
+    display=True,
+)
+
+# --- Run testsuite ---
+suite = TestSuite()
+
+func = "add"
+
+suite.unittestplus(func, inputs=[5, 5])
+suite.unittestplus(func, inputs=[10, 20], expected_output=30)
+suite.unittestplus(func, inputs=[-5, 5], expected_output=0)
+suite.unittestplus(
+    func, inputs=[1, 2], expected_output=3, assertion={"type": "equals", "value": 3}
+)
+suite.unittestplus(
+    func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 3}
+)
+suite.unittestplus(
+    func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 2}
+)
+suite.unittestplus(func, inputs=["1", 2])
+suite.run_tests()
+suite.print_summary()
 ```
-
----
-
-### 2. Managing Test Files
-
-**Clear all tests for a function:**
-
-```python
-from manipulate import clear_tests
-clear_tests(sum2int)
-```
-
-**Delete a function's test file:**
-
-```python
-from manipulate import delete_file
-delete_file(sum2int)
-```
-
----
-
-### 3. Test Metadata
-
-**Update test alias or message:**
-
-```python
-from manipulate import update_alias, update_message
-update_alias(sum2int, "MyAlias", test_id=1)
-update_message(sum2int, "This is a test", test_id=1)
-```
-
-**Get test ID by alias:**
-
-```python
-from manipulate import get_testid
-test_id = get_testid(sum2int, "MyAlias")
-```
-
----
-
-### 4. Test Query & Comparison
-
-**Filter tests by value:**
-
-```python
-from manipulate import filter_test_by_value
-results = filter_test_by_value(sum2int, key="error", value=False)
-```
-
-**Rank tests by a metric:**
-
-```python
-from manipulate import rank_test_by_value
-ranked = rank_test_by_value(sum2int, key="execution_time_sec")
-```
-
-**Compare most recent tests:**
-
-```python
-from manipulate import compare_most_recent
-diffs = compare_most_recent(sum2int)
-```
-
-**Compare inputs/outputs of two tests:**
-
-```python
-from manipulate import compare_io
-compare_io(sum2int, test_id_1=1, test_id_2=2)
-```
-
----
-
-### 5. Regression Testing
-
-**Run regression tests:**
-
-```python
-from manipulate import run_regression
-summary = run_regression("sum2int", inputs=[[2, 3], [5, 7]])
-```
-
----
-
-### 6. Serialization Utilities
-
-**Safely serialize objects for logging:**
-
-```python
-from serialise import safe_serialise
-safe_serialise([1, 2, 3])
-```
-
-
 ---
 
 ## License
@@ -240,5 +199,7 @@ MIT License
 - [ ] Validate on PyPI
 
 ### Functionality to add in the future
+- [ ] Change JSON writes to either use sqllite or append-only writes
+- [ ] More complex assertions (tolerances, regex, custom functions)
 - [ ] Bytemap strings 
 - [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)
