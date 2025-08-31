@@ -5,6 +5,7 @@ on:
 
 jobs:
   test-installation:
+    name: Package-Installation-and-Import-Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
