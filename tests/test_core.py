@@ -1,24 +1,81 @@
-import unittest
-from unittest.mock import patch, MagicMock
-import types
-import sys
+import inspect
+import json
 import os
-import pandas as pd
-import numpy as np
+import sys
+import unittest
+from pathlib import Path
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+import numpy as np
+import pandas as pd
+
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
+)
 
 import core
 
-def dummy_func(a, b):
+
+def dummy_func_core(a, b):
     return a + b
 
-def error_func(a, b):
+
+def error_func_core(a, b):
     return a + "bad"  # Will raise TypeError
 
+
+FUNC_DIR = os.path.join(os.path.dirname(__file__), "..", "func")
+DUMMY_FUNC_FILE = Path(FUNC_DIR) / "dummy_func_core.json"
+ERROR_FUNC_FILE = Path(FUNC_DIR) / "error_func_core.json"
+
+
 class TestCoreFunctions(unittest.TestCase):
+    def setUp(self):
+        os.makedirs(FUNC_DIR, exist_ok=True)
+        # Write dummy_func_core.json
+        dummy_data = {
+            "tests": [
+                {
+                    "definition": inspect.getsource(dummy_func_core),
+                    "test_id": 1,
+                    "metrics": {
+                        "args": [2, 2],
+                        "kwargs": {},
+                        "expected_output": 4,
+                        "actual_output": 4,
+                        "output_match": True,
+                    },
+                }
+            ]
+        }
+        with open(DUMMY_FUNC_FILE, "w") as f:
+            json.dump(dummy_data, f)
+        # Write error_func_core.json
+        error_data = {
+            "tests": [
+                {
+                    "definition": inspect.getsource(error_func_core),
+                    "test_id": 1,
+                    "metrics": {
+                        "args": [2, 3],
+                        "kwargs": {},
+                        "expected_output": None,
+                        "actual_output": None,
+                        "output_match": False,
+                    },
+                }
+            ]
+        }
+        with open(ERROR_FUNC_FILE, "w") as f:
+            json.dump(error_data, f)
+
+    def tearDown(self):
+        if DUMMY_FUNC_FILE.exists():
+            DUMMY_FUNC_FILE.unlink()
+        if ERROR_FUNC_FILE.exists():
+            ERROR_FUNC_FILE.unlink()
+
     def test_execute_function_success(self):
-        self.assertEqual(core._execute_function(dummy_func, args=[2, 3]), 5)
+        self.assertEqual(core._execute_function(dummy_func_core, args=[2, 3]), 5)
 
     def test_execute_function_none(self):
         with self.assertRaises(ValueError):
@@ -26,7 +83,7 @@ class TestCoreFunctions(unittest.TestCase):
 
     def test_execute_function_error(self):
         with self.assertRaises(RuntimeError):
-            core._execute_function(error_func, args=[1, 2])
+            core._execute_function(error_func_core, args=[1, 2])
 
     def test_compare_outputs_equal_scalars(self):
         self.assertTrue(core._compare_outputs(5, 5))
@@ -78,38 +135,47 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertFalse(core._compare_outputs({"a": 1}, [("a", 1)]))
 
     def test_gen_func_identity_stability(self):
-        id1 = core._gen_func_identity(dummy_func)
-        id2 = core._gen_func_identity(dummy_func)
-        self.assertEqual(id1['function_id'], id2['function_id'])
+        id1 = core._gen_func_identity(dummy_func_core)
+        id2 = core._gen_func_identity(dummy_func_core)
+        self.assertEqual(id1["function_id"], id2["function_id"])
 
     def test_gen_func_identity_uniqueness(self):
-        id1 = core._gen_func_identity(dummy_func)
-        id2 = core._gen_func_identity(error_func)
-        self.assertNotEqual(id1['function_id'], id2['function_id'])
+        id1 = core._gen_func_identity(dummy_func_core)
+        id2 = core._gen_func_identity(error_func_core)
+        self.assertNotEqual(id1["function_id"], id2["function_id"])
 
     def test_gen_func_identity_none(self):
         with self.assertRaises(ValueError):
             core._gen_func_identity(None)
 
-    @patch("core._get_file_path")
-    @patch("core._load_json")
-    def test_gen_test_identity_new(self, mock_load_json, mock_get_file_path):
-        # Simulate no file exists
-        mock_get_file_path.return_value.exists.return_value = False
-        result = core._gen_test_identity(dummy_func)
-        self.assertEqual(result, [])
+    def test_gen_test_identity_new(self):
+        result = core._gen_test_identity(dummy_func_core)
+        self.assertEqual(result, 2)  # Next test_id after 1
 
-    @patch("core._get_file_path")
-    @patch("core._load_json")
-    def test_gen_test_identity_increment(self, mock_load_json, mock_get_file_path):
-        # Simulate file exists with test_ids
-        mock_get_file_path.return_value.exists.return_value = True
-        mock_load_json.return_value = {"tests": [{"test_id": 1}, {"test_id": 3}]}
-        result = core._gen_test_identity(dummy_func)
-        self.assertEqual(result, 4)
+    def test_gen_test_identity_increment(self):
+        # Add another test to dummy_func_core.json
+        with open(DUMMY_FUNC_FILE, "r") as f:
+            data = json.load(f)
+        data["tests"].append(
+            {
+                "definition": inspect.getsource(dummy_func_core),
+                "test_id": 2,
+                "metrics": {
+                    "args": [3, 3],
+                    "kwargs": {},
+                    "expected_output": 6,
+                    "actual_output": 6,
+                    "output_match": True,
+                },
+            }
+        )
+        with open(DUMMY_FUNC_FILE, "w") as f:
+            json.dump(data, f)
+        result = core._gen_test_identity(dummy_func_core)
+        self.assertEqual(result, 3)
 
     def test_check_profile(self):
-        result, time_used, mem_used = core._check_profile(dummy_func, args=[1, 2])
+        result, time_used, mem_used = core._check_profile(dummy_func_core, args=[1, 2])
         self.assertEqual(result, 3)
         self.assertTrue(time_used >= 0)
         self.assertTrue(mem_used >= 0)
@@ -121,69 +187,63 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertIn("return 1", cleaned)
 
     def test_add_custom_metrics_none(self):
-        result = core._add_custom_metrics(dummy_func, None, [1, 2], {})
+        result = core._add_custom_metrics(dummy_func_core, None, [1, 2], {})
         self.assertEqual(result, {})
 
     def test_add_custom_metrics_callable(self):
         def metric(func, args, kwargs):
             return args[0] * 2
+
         metrics = {"double_first": metric}
-        result = core._add_custom_metrics(dummy_func, metrics, [2, 3], {})
+        result = core._add_custom_metrics(dummy_func_core, metrics, [2, 3], {})
         self.assertEqual(result["double_first"], 4)
 
     def test_add_custom_metrics_string(self):
         metrics = {"sum_args": "args[0] + args[1]"}
-        result = core._add_custom_metrics(dummy_func, metrics, [2, 3], {})
+        result = core._add_custom_metrics(dummy_func_core, metrics, [2, 3], {})
         self.assertEqual(result["sum_args"], 5)
 
     def test_add_custom_metrics_invalid(self):
         metrics = {"bad": 123}
-        result = core._add_custom_metrics(dummy_func, metrics, [2, 3], {})
+        result = core._add_custom_metrics(dummy_func_core, metrics, [2, 3], {})
         self.assertIn("Invalid metric type", result["bad"])
 
     def test_add_custom_metrics_error(self):
         metrics = {"err": "1/0"}
-        result = core._add_custom_metrics(dummy_func, metrics, [2, 3], {})
+        result = core._add_custom_metrics(dummy_func_core, metrics, [2, 3], {})
         self.assertIn("Error evaluating metric", result["err"])
 
-    @patch("core.write_json")
-    @patch("core._get_file_path")
-    @patch("core._load_json")
-    def test_unittestplus_success(self, mock_load_json, mock_get_file_path, mock_write_json):
-        # Patch _get_file_path and _load_json for _gen_test_identity
-        mock_get_file_path.return_value.exists.return_value = False
-        mock_load_json.return_value = {"tests": []}
-        result = core.unittestplus(dummy_func, inputs=[2, 2], expected_output=4, display=False)
-        self.assertTrue(result['test']['metrics']['output_match'])
-        self.assertIsNone(result['test']['error'])
+    def test_unittestplus_success(self):
+        result = core.unittestplus(
+            dummy_func_core, inputs=[2, 2], expected_output=4, display=False
+        )
+        self.assertTrue(result["test"]["metrics"]["output_match"])
+        self.assertIsNone(result["test"]["error"])
 
-    @patch("core.write_json")
-    @patch("core._get_file_path")
-    @patch("core._load_json")
-    def test_unittestplus_failure(self, mock_load_json, mock_get_file_path, mock_write_json):
-        mock_get_file_path.return_value.exists.return_value = False
-        mock_load_json.return_value = {"tests": []}
-        result = core.unittestplus(dummy_func, inputs=[2, 2], expected_output=5, display=False)
-        self.assertFalse(result['test']['metrics']['output_match'])
+    def test_unittestplus_failure(self):
+        result = core.unittestplus(
+            dummy_func_core, inputs=[2, 2], expected_output=5, display=False
+        )
+        self.assertFalse(result["test"]["metrics"]["output_match"])
 
-    @patch("core.write_json")
-    @patch("core._get_file_path")
-    @patch("core._load_json")
-    def test_unittestplus_error(self, mock_load_json, mock_get_file_path, mock_write_json):
-        mock_get_file_path.return_value.exists.return_value = False
-        mock_load_json.return_value = {"tests": []}
-        result = core.unittestplus(error_func, inputs=[2, 3], expected_output=None, display=False)
-        self.assertTrue(result['test']['error'])
-        self.assertTrue(result['test']['error_message'])
+    def test_unittestplus_error(self):
+        result = core.unittestplus(
+            error_func_core, inputs=[2, 3], expected_output=None, display=False
+        )
+        self.assertTrue(result["test"]["error"])
+        self.assertTrue(result["test"]["error_message"])
+
 
 def run_tests():
     class VerboseTestResult(unittest.TextTestResult):
         def addSuccess(self, test):
             super().addSuccess(test)
             print(f"{test.id()} - PASS")
+
         def addFailure(self, test, err):
             super().addFailure(test, err)
             print(f"{test.id()} - FAIL: {err[1]}")
+
         def addError(self, test, err):
             super().addError(test, err)
             print(f"{test.id()} - ERROR: {err[1]}")
@@ -193,6 +253,7 @@ def run_tests():
     suite = unittest.TestSuite([class_test])
     runner = unittest.TextTestRunner(resultclass=VerboseTestResult, verbosity=0)
     runner.run(suite)
+
 
 if __name__ == "__main__":
     run_tests()

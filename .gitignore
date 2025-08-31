@@ -24,5 +24,8 @@ venv/
 
 # Test file I use
 example_usage.py
+NotesForMe.md
+.mypy_cache
+.ruff_cache
 
 

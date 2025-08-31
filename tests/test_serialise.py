@@ -1,24 +1,27 @@
-import unittest
-import pandas as pd
-import numpy as np
-import sys
 import os
+import sys
+import unittest
+
+import numpy as np
+import pandas as pd
 
 # Adjust path for local import if needed
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+sys.path.insert(
+    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
+)
 
-import serialise  
+import serialise
 
 
 class TestSafeSerialise(unittest.TestCase):
 
     def test_serialize_dataframe(self):
-        df = pd.DataFrame({'a': [1, 2], 'b': [3, 4]})
+        df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
         result = serialise.safe_serialise(df)
         self.assertEqual(result["type"], "DataFrame")
         self.assertEqual(result["shape"], (2, 2))
-        self.assertEqual(result["columns"], ['a', 'b'])
-        self.assertEqual(result["dtypes"], {'a': 'int64', 'b': 'int64'})
+        self.assertEqual(result["columns"], ["a", "b"])
+        self.assertEqual(result["dtypes"], {"a": "int64", "b": "int64"})
         self.assertEqual(result["sample"], df.head(3).to_dict())
 
     def test_serialize_series(self):
@@ -31,7 +34,9 @@ class TestSafeSerialise(unittest.TestCase):
         self.assertEqual(result["sample"], [1, 2, 3])
 
     def test_serialize_ndarray(self):
-        arr = np.array([[1, 2], [3, 4]], dtype=np.int64) # Forcing dtype to int64 for platform compatibility
+        arr = np.array(
+            [[1, 2], [3, 4]], dtype=np.int64
+        )  # Forcing dtype to int64 for platform compatibility
         result = serialise.safe_serialise(arr)
         self.assertEqual(result["type"], "ndarray")
         self.assertEqual(result["shape"], (2, 2))
@@ -45,11 +50,11 @@ class TestSafeSerialise(unittest.TestCase):
         self.assertEqual(result["sample"], [1, 2, 3])
 
     def test_serialize_dict(self):
-        d = {'a': 1, 'b': 2, 'c': 3}
+        d = {"a": 1, "b": 2, "c": 3}
         result = serialise.safe_serialise(d)
         self.assertEqual(result["type"], "dict")
         self.assertEqual(result["length"], 3)
-        self.assertEqual(result["sample"], {'a': 1, 'b': 2, 'c': 3})
+        self.assertEqual(result["sample"], {"a": 1, "b": 2, "c": 3})
 
     def test_serialize_primitive(self):
         for val in [123, "hello", 3.14, True, None]:
@@ -57,7 +62,9 @@ class TestSafeSerialise(unittest.TestCase):
 
     def test_serialize_unhandled_type(self):
         class Foo:
-            def __str__(self): return "custom_obj"
+            def __str__(self):
+                return "custom_obj"
+
         f = Foo()
         self.assertEqual(serialise.safe_serialise(f), "custom_obj")
 
@@ -67,9 +74,11 @@ def run_tests():
         def addSuccess(self, test):
             super().addSuccess(test)
             print(f"{test.id()} - PASS")
+
         def addFailure(self, test, err):
             super().addFailure(test, err)
             print(f"{test.id()} - FAIL: {err[1]}")
+
         def addError(self, test, err):
             super().addError(test, err)
             print(f"{test.id()} - ERROR: {err[1]}")
