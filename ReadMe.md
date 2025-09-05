@@ -199,7 +199,9 @@ MIT License
 - [ ] Validate on PyPI
 
 ### Functionality to add in the future
-- [ ] Change JSON writes to either use sqllite or append-only writes
+- [ ] Data validity checks (schemas, types)
 - [ ] More complex assertions (tolerances, regex, custom functions)
 - [ ] Bytemap strings 
-- [ ] Concurrency (unique test ids might cause issues if multiple devs work on it)
+- [ ] Async function support
+- [ ] Change JSON writes to either use sqllite or append-only writes
+- [ ] Concurrency (unique, sequential test ids might cause issues if multiple devs work on it)

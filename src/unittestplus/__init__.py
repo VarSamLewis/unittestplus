@@ -1,6 +1,6 @@
 from .core import unittestplus
-from .testsuite import TestSuite
 from .manipulate import run_regression
+from .testsuite import TestSuite
 
 __version__ = "0.2.0"  # Match with your pyproject.toml
 
