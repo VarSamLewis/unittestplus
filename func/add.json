@@ -4912,6 +4912,888 @@
                 "custom_metrics": {}
             },
             "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 168,
+            "test_alias": "Addition test",
+            "test_message": "Basic addition check",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 2,
+                    "arg1": 3
+                },
+                "args": [
+                    2,
+                    3
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": 5,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 5
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.768493",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 169,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.816529",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 170,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.839528",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 171,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.864531",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 172,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.889534",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 173,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.912531",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 174,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.941529",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 175,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:08.963605",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 176,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 757.084,
+                "timestamp": "2025-09-05T21:13:09.033543",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 177,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.057527",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 178,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.080528",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 179,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.105534",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 180,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.131644",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 181,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.155641",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 182,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:13:09.177648",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 183,
+            "test_alias": "Addition test",
+            "test_message": "Basic addition check",
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 2,
+                    "arg1": 3
+                },
+                "args": [
+                    2,
+                    3
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": 5,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 5
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.406093",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 184,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.452360",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 185,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.476360",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 186,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.500359",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 187,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.523859",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 188,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.547859",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 189,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.572182",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 190,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.596647",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 191,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 5,
+                    "arg1": 5
+                },
+                "args": [
+                    5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": 10,
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 820.543,
+                "timestamp": "2025-09-05T21:15:02.671039",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 192,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 10,
+                    "arg1": 20
+                },
+                "args": [
+                    10,
+                    20
+                ],
+                "kwargs": {},
+                "expected_output": 30,
+                "actual_output": 30,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.695039",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 193,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": -5,
+                    "arg1": 5
+                },
+                "args": [
+                    -5,
+                    5
+                ],
+                "kwargs": {},
+                "expected_output": 0,
+                "actual_output": 0,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.718144",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 194,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 3,
+                "actual_output": 3,
+                "output_match": true,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.752542",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 195,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 3
+                },
+                "assertion_passed": true,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.779062",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 196,
+            "test_alias": null,
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": 1,
+                    "arg1": 2
+                },
+                "args": [
+                    1,
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": 4,
+                "actual_output": 3,
+                "output_match": false,
+                "assertion": {
+                    "type": "equals",
+                    "value": 2
+                },
+                "assertion_passed": false,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.807820",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
+        },
+        {
+            "test_id": 197,
+            "test_alias": null,
+            "test_message": null,
+            "error": true,
+            "error_message": "can only concatenate str (not \"int\") to str",
+            "metrics": {
+                "inputs": {
+                    "arg0": "1",
+                    "arg1": 2
+                },
+                "args": [
+                    "1",
+                    2
+                ],
+                "kwargs": {},
+                "expected_output": null,
+                "actual_output": null,
+                "output_match": true,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 0.0,
+                "peak_memory_kb": 0.0,
+                "timestamp": "2025-09-05T21:15:02.830821",
+                "custom_metrics": {}
+            },
+            "definition": "def add(a, b):\n    return a + b"
         }
     ]
 }

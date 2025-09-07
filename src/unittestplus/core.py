@@ -9,9 +9,8 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from .log_test import _get_file_path, _load_json, write_json
-from .manipulate import _rebuild_function_from_definition
 from .serialise import safe_serialise
-from .utils import set_unittestplus_log_level
+from .utils import set_unittestplus_log_level, _rebuild_function_from_definition
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
