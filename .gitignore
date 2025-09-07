@@ -23,7 +23,7 @@ venv/
 *.db
 
 # Test file I use
-#example_usage.py
+example_usage.py
 NotesForMe.md
 .mypy_cache
 .ruff_cache
