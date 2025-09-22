@@ -13,7 +13,12 @@ authors = [
 dependencies = [
   "pandas",
   "numpy",
-  "polars",
+  "polars"
+]
+
+
+[project.optional-dependencies]
+dev = [
   "black",
   "mypy",
   "ruff"
