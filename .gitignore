@@ -11,7 +11,7 @@ build/
 
 
 dist/
-*.egg-info
+testprofiler.egg-info/
 
 
 # Virtual environments
