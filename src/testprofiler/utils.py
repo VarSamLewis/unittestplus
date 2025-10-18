@@ -112,7 +112,7 @@ def _rebuild_function_from_definition(definition: str, func_name: str):
         raise RuntimeError(f"Error rebuilding function '{func_name}': {e}")
 
 
-def set_unittestplus_log_level(level: int) -> None:
+def set_testprofiler_log_level(level: int) -> None:
     for name in logging.root.manager.loggerDict:
-        if name.startswith("unittestplus"):
+        if name.startswith("testprofiler"):
             logging.getLogger(name).setLevel(level)

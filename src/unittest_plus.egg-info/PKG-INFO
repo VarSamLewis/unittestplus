@@ -1,12 +1,32 @@
-# testprofiler
+Metadata-Version: 2.4
+Name: unittest-plus
+Version: 1.0.0
+Summary: Lightweight testing utility for Python functions with profiling and logging.
+Author-email: Sam Lewis <samlewis1999.sl@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/VarSamLewis/unittestplus
+Project-URL: Repository, https://github.com/VarSamLewis/unittestplus
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=1.5.0
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: polars>=0.16.0
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
 
-**testprofiler** is a lightweight Python utility for testing individual functions with built-in execution profiling, regression testing, and test management. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
+# unittest-plus
+
+**unittest-plus** is a lightweight Python utility for testing individual functions with built-in execution profiling, regression testing, and test management. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
 
 ---
 
 ## Features
 
-- Easy-to-use `testprofiler()` function for testing any Python function.
+- Easy-to-use `unittestplus()` function for testing any Python function.
 - Automatically compares actual vs expected output.
 - Logs:
   - Inputs (args + kwargs)
@@ -28,14 +48,14 @@
 Install from PyPI:
 
 ```bash
-pip install testprofiler
+pip install unittest-plus
 ```
 
 Requires Python 3.10 or higher.
 
 ## Philosophy
 
-testprofiler is for data scientists, ML engineers, and backend developers who want:
+unittest-plus is for data scientists, ML engineers, and backend developers who want:
 
 - Fast feedback loops
 - Lightweight test instrumentation
@@ -47,13 +67,13 @@ testprofiler is for data scientists, ML engineers, and backend developers who wa
 ## Quick Start Example
 
 ```python
-from testprofiler import testprofiler
+from unittestplus import unittestplus
 
 def sum2int(a, b):
     return a + b
 
 # Run and log a test
-testprofiler(
+unittestplus(
     func=sum2int,
     inputs=[2, 3],
     expected_output=5,
@@ -110,12 +130,12 @@ Complex types (dataframes, dicts, etc.) are stored as metadata (type, length, sa
 
 ### Core Function
 
-**Function:** `testprofiler`
+**Function:** `unittestplus`
 
 Runs a function with given inputs and logs the result.
 
 ```python
-testprofiler(
+unittestplus(
     func,                # Function to test
     inputs=None,         # Positional arguments
     kwargs=None,         # Keyword arguments
@@ -126,21 +146,23 @@ testprofiler(
     custom_metrics=None, # Custom metrics to evaluate
     assertion=None,      # Assertion dict, e.g. {"type": "equals", "value": 5}
     verbose=False        # If True, show detailed logs; if False, suppress logs
-)
+) 
 ```
 
 ---
 ### All UserFacing API Function Examples 
 
 ```python
-from testprofiler import testprofiler, run_regression, TestSuite
+from unittestplus.core import unittestplus
+from unittestplus.manipulate import run_regression
+from unittestplus.testsuite import TestSuite
 
 # --- Simple function to test ---
 def add(a, b):
     return a + b
 
-# --- Run testprofiler ---
-result = testprofiler(
+# --- Run unittestplus ---
+result = unittestplus(
     func=add,
     inputs=[2, 3],
     expected_output=5,
@@ -162,19 +184,19 @@ suite = TestSuite()
 
 func = "add"
 
-suite.testprofiler(func, inputs=[5, 5])
-suite.testprofiler(func, inputs=[10, 20], expected_output=30)
-suite.testprofiler(func, inputs=[-5, 5], expected_output=0)
-suite.testprofiler(
+suite.unittestplus(func, inputs=[5, 5])
+suite.unittestplus(func, inputs=[10, 20], expected_output=30)
+suite.unittestplus(func, inputs=[-5, 5], expected_output=0)
+suite.unittestplus(
     func, inputs=[1, 2], expected_output=3, assertion={"type": "equals", "value": 3}
 )
-suite.testprofiler(
+suite.unittestplus(
     func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 3}
 )
-suite.testprofiler(
+suite.unittestplus(
     func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 2}
 )
-suite.testprofiler(func, inputs=["1", 2])
+suite.unittestplus(func, inputs=["1", 2])
 suite.run_tests()
 suite.print_summary()
 ```

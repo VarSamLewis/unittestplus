@@ -1,3 +1,23 @@
+Metadata-Version: 2.4
+Name: testprofiler
+Version: 1.0.1
+Summary: Lightweight testing utility for Python functions with profiling and logging.
+Author-email: Sam Lewis <samlewis1999.sl@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/VarSamLewis/unittestplus
+Project-URL: Repository, https://github.com/VarSamLewis/unittestplus
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas>=1.5.0
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: polars>=0.16.0
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
+
 # testprofiler
 
 **testprofiler** is a lightweight Python utility for testing individual functions with built-in execution profiling, regression testing, and test management. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.

@@ -1,4 +1,4 @@
-from .core import unittestplus
+from .core import testprofiler
 
 KEY_TESTS = "tests"
 KEY_TEST_ID = "test_id"
@@ -8,7 +8,7 @@ class TestSuite:
     def __init__(self):
         self.tests = []
 
-    def unittestplus(self, func, **kwargs):
+    def testprofiler(self, func, **kwargs):
         self.tests.append({"func": func, "kwargs": kwargs})
 
     def run_tests(self):
@@ -16,7 +16,7 @@ class TestSuite:
         for test in self.tests:
             func = test["func"]
             kwargs = test["kwargs"]
-            result = unittestplus(func, **kwargs)
+            result = testprofiler(func, **kwargs)
             results.append(result)
 
         return results
@@ -141,19 +141,19 @@ def main():
 
     func = "sum2int"
 
-    suite.unittestplus(func, inputs=[5, 5])
-    suite.unittestplus(func, inputs=[10, 20], expected_output=30)
-    suite.unittestplus(func, inputs=[-5, 5], expected_output=0)
-    suite.unittestplus(
+    suite.testprofiler(func, inputs=[5, 5])
+    suite.testprofiler(func, inputs=[10, 20], expected_output=30)
+    suite.testprofiler(func, inputs=[-5, 5], expected_output=0)
+    suite.testprofiler(
         func, inputs=[1, 2], expected_output=3, assertion={"type": "equals", "value": 3}
     )
-    suite.unittestplus(
+    suite.testprofiler(
         func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 3}
     )
-    suite.unittestplus(
+    suite.testprofiler(
         func, inputs=[1, 2], expected_output=4, assertion={"type": "equals", "value": 2}
     )
-    suite.unittestplus(func, inputs=["1", 2])
+    suite.testprofiler(func, inputs=["1", 2])
 
     suite.run_tests()
     suite.print_summary()

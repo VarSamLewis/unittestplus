@@ -8,7 +8,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-from unittestplus import manipulate
+from testprofiler import manipulate
 
 FUNC_DIR = Path.cwd() / "func"
 DUMMY_FUNC_FILE = Path(FUNC_DIR) / "dummy_func_manipulate.json"
