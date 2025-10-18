@@ -2,8 +2,6 @@
 
 **unittestplus** is a lightweight Python utility for testing individual functions with built-in execution profiling, regression testing, and test management. It logs inputs, outputs, execution time, peak memory usage, and can help version and validate function behavior.
 
-> **PyPI Release Target:** September 1st, 2025
-
 ---
 
 ## Features
@@ -27,12 +25,13 @@
 
 ## Installation
 
-Clone and run in any Python environment (3.7+). See `requirements.txt` for dependencies.
+Install from PyPI:
 
 ```bash
-git clone https://github.com/yourname/unittestplus.git
-cd unittestplus
+pip install unittestplus
 ```
+
+Requires Python 3.10 or higher.
 
 ## Philosophy
 
@@ -48,7 +47,7 @@ unittestplus is for data scientists, ML engineers, and backend developers who wa
 ## Quick Start Example
 
 ```python
-from core import unittestplus
+from unittestplus import unittestplus
 
 def sum2int(a, b):
     return a + b
