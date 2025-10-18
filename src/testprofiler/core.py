@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from .log_test import _get_file_path, _load_json, write_json
 from .serialise import safe_serialise
-from .utils import _rebuild_function_from_definition, set_unittestplus_log_level
+from .utils import _rebuild_function_from_definition, set_testprofiler_log_level
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -213,7 +213,7 @@ def _simple_assert(assert_type: str, output: Any, assert_value: Any = None) -> b
         raise ValueError(f"Unknown assert_type: {assert_type}")
 
 
-def unittestplus(
+def testprofiler(
     func: Callable[..., Any],
     inputs: Optional[Union[List[Any], Tuple[Any, ...]]] = None,
     kwargs: Optional[Dict[str, Any]] = None,
@@ -230,7 +230,7 @@ def unittestplus(
     and logs execution info.
     """
 
-    set_unittestplus_log_level(logging.INFO if verbose else logging.ERROR)
+    set_testprofiler_log_level(logging.INFO if verbose else logging.ERROR)
 
     if inputs is None:
         args = []
@@ -367,7 +367,7 @@ if __name__ == "__main__":
     def example_func(x, y):
         return x + y
 
-    unittestplus(
+    testprofiler(
         func=example_func,
         inputs=[2, 3],
         expected_output=5,

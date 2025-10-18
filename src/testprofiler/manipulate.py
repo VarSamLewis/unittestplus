@@ -14,7 +14,7 @@ from .log_test import (
     _get_regression_file_path,
     _load_json,
 )
-from .utils import _rebuild_function_from_definition, set_unittestplus_log_level
+from .utils import _rebuild_function_from_definition, set_testprofiler_log_level
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -485,7 +485,7 @@ def run_regression(
     existing_test_cases = []
     test_data = None
 
-    set_unittestplus_log_level(logging.INFO if verbose else logging.ERROR)
+    set_testprofiler_log_level(logging.INFO if verbose else logging.ERROR)
 
     try:
         # Get the function's original test file to load the function definition

@@ -12,7 +12,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-from unittestplus import core
+from testprofiler import core
 
 
 def dummy_func_core(a, b):
@@ -213,21 +213,21 @@ class TestCoreFunctions(unittest.TestCase):
         result = core._add_custom_metrics(dummy_func_core, metrics, [2, 3], {})
         self.assertIn("Error evaluating metric", result["err"])
 
-    def test_unittestplus_success(self):
-        result = core.unittestplus(
+    def test_testprofiler_success(self):
+        result = core.testprofiler(
             dummy_func_core, inputs=[2, 2], expected_output=4, display=False
         )
         self.assertTrue(result["test"]["metrics"]["output_match"])
         self.assertIsNone(result["test"]["error"])
 
-    def test_unittestplus_failure(self):
-        result = core.unittestplus(
+    def test_testprofiler_failure(self):
+        result = core.testprofiler(
             dummy_func_core, inputs=[2, 2], expected_output=5, display=False
         )
         self.assertFalse(result["test"]["metrics"]["output_match"])
 
-    def test_unittestplus_error(self):
-        result = core.unittestplus(
+    def test_testprofiler_error(self):
+        result = core.testprofiler(
             error_func_core, inputs=[2, 3], expected_output=None, display=False
         )
         self.assertTrue(result["test"]["error"])

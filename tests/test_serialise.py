@@ -10,7 +10,7 @@ sys.path.insert(
     0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 )
 
-from unittestplus import serialise
+from testprofiler import serialise
 
 
 class TestSafeSerialise(unittest.TestCase):
