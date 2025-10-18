@@ -1,4 +1,4 @@
-﻿import datetime
+import datetime
 import hashlib
 import inspect
 import json
@@ -10,7 +10,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 from .log_test import _get_file_path, _load_json, write_json
 from .serialise import safe_serialise
-from .utils import set_unittestplus_log_level, _rebuild_function_from_definition
+from .utils import _rebuild_function_from_definition, set_unittestplus_log_level
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -183,7 +183,7 @@ def _compare_outputs(a: Any, b: Any, max_items: int = 3) -> bool:
             else:
                 print(f"Expected: {a_ser}, Actual: {b_ser}")
                 logger.warning(
-                    f"Outputs do not match: Expected: {a_ser}, Actu al: {b_ser}"
+                    f"Outputs do not match: Expected: {a_ser}, Actual: {b_ser}"
                 )
                 return False
     except Exception as e:

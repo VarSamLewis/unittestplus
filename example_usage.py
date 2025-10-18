@@ -1,5 +1,6 @@
 import os
 import sys
+import anthropic
 
 # Ensure src is in the path for imports
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
@@ -59,28 +60,28 @@ suite.run_tests()
 suite.print_summary()
 
 
-#------ Test AI Call --------#
-import anthropic
-import os
+# ------ Test AI Call --------#
 
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-system_prompt = """ 
+system_prompt = """
 Be informative
 Do not tell the user what you are doing, just do it.
-""" 
+"""
 
 prompt = "Respond with 500 words on read vs write speed in database design"
 
 max_tokens = 5000
 
- 
+
 params = {
-    "model": 'claude-3-7-sonnet-20250219',
+    "model": "claude-3-7-sonnet-20250219",
     "max_tokens": max_tokens,
     "system": system_prompt,
     "messages": [{"role": "user", "content": prompt}],
 }
+
+
 def call_anthropic_api(params):
     try:
         response = client.messages.create(**params)
@@ -89,9 +90,5 @@ def call_anthropic_api(params):
         print(f"Anthropic API Error: {e}")
         return None
 
-unittestplus(
-    func=call_anthropic_api,
-    inputs=params,
-    expected_output=5,
-    alias="AI Test"
-)
+
+unittestplus(func=call_anthropic_api, inputs=params, expected_output=5, alias="AI Test")

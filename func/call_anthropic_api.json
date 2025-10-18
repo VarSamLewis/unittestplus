@@ -43,6 +43,132 @@
                 "custom_metrics": {}
             },
             "definition": "def call_anthropic_api(params):\n    try:\n        response = client.messages.create(**params)\n        return response.content[0].text\n    except anthropic.AnthropicAPIError as e:\n        print(f\"Anthropic API Error: {e}\")\n        return None"
+        },
+        {
+            "test_id": 1,
+            "test_alias": "AI Test",
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": " \nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                },
+                "args": [
+                    {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": " \nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": "# Read vs Write Speed in Database Design: Finding the Right Balance\n\nDatabase design involves critical tradeoffs between read and write performance. Understanding these tradeoffs is essential for creating systems that meet specific application requirements.\n\n## Read-Optimized Designs\n\nRead-optimized databases excel at quickly retrieving data but may sacrifice write performance. These designs typically feature:\n\n- **Denormalization**: Storing redundant data to reduce join operations, allowing faster reads at the cost of more complex and slower writes.\n- **Indexing**: Extensive indexes speed up queries but slow down writes as each index must be updated.\n- **Materialized views**: Pre-computed query results that accelerate reads but require maintenance during writes.\n- **Columnar storage**: Column-oriented databases like Vertica or ClickHouse that excel at analytical queries but aren't ideal for transaction processing.\n- **In-memory caching**: Systems like Redis that keep frequently accessed data in memory for near-instant retrieval.\n\n## Write-Optimized Designs\n\nWrite-optimized databases prioritize data ingestion speed, often with compromises on read performance:\n\n- **Log-structured storage**: Systems like Cassandra use sequential writes to optimize write throughput.\n- **Minimal indexing**: Reducing indexes decreases write overhead but makes complex queries slower.\n- **Eventual consistency**: NoSQL databases often relax consistency requirements to improve write performance.\n- **Write-ahead logging**: Techniques that prioritize capturing changes quickly, with actual data organization happening later.\n- **LSM trees**: Log-Structured Merge Trees (used in databases like LevelDB) optimize for write speed by batching operations.\n\n## Finding the Right Balance\n\nMost applications require a thoughtful balance between read and write performance:\n\n1. **Understand access patterns**: Analyze whether your application is read-heavy, write-heavy, or balanced.\n2. **Consider scaling direction**: Read workloads often scale horizontally with replicas, while write workloads may require sharding.\n3. **Evaluate consistency needs**: Stronger consistency typically impacts write performance.\n4. **Time-sensitivity**: Determine if reads or writes have stricter latency requirements.\n\n## Hybrid Approaches\n\nModern database designs often implement hybrid approaches:\n\n- **CQRS (Command Query Responsibility Segregation)**: Separating read and write models, optimizing each independently.\n- **Event sourcing**: Storing changes as an append-only log, with separate read-optimized projections.\n- **Polyglot persistence**: Using different database technologies for different aspects of the application.\n- **Time-series optimizations**: Specialized approaches for time-series data that handle high write throughput and time-based queries efficiently.\n\n## Performance Considerations\n\nAdditional factors affecting read/write performance include:\n\n- **Hardware**: SSDs vs HDDs, memory capacity, and CPU resources.\n- **Network topology**: Latency between database nodes and application servers.\n- **Locking mechanisms**: Pessimistic vs optimistic concurrency control.\n- **Transaction isolation levels**: Higher isolation typically reduces concurrency.\n- **Batch processing**: Grouping operations can significantly improve write throughput.\n\n## Conclusion\n\nThere's no universal solution for database design. The optimal read/write balance depends on application requirements, data characteristics, and business needs. The most successful designs recognize these tradeoffs explicitly, making intentional decisions that align with specific use cases rather than pursuing theoretical ideals. Modern systems increasingly employ specialized database components working together, each optimized for different aspects of data management.",
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 14.95,
+                "peak_memory_kb": 31248.404,
+                "timestamp": "2025-10-11T18:30:23.484062",
+                "custom_metrics": {}
+            },
+            "definition": "def call_anthropic_api(params):\n    try:\n        response = client.messages.create(**params)\n        return response.content[0].text\n    except anthropic.AnthropicAPIError as e:\n        print(f\"Anthropic API Error: {e}\")\n        return None"
+        },
+        {
+            "test_id": 2,
+            "test_alias": "AI Test",
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": " \nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                },
+                "args": [
+                    {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": " \nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": "# Balancing Read vs. Write Speed in Database Design\n\nDatabase performance optimization requires careful consideration of the trade-offs between read and write operations. Different use cases demand different approaches to this balance, making it a fundamental aspect of database design.\n\n## Read-Optimized Systems\n\nRead-optimized databases excel at quickly retrieving data but may sacrifice write performance. These systems typically implement:\n\n- **Denormalization**: Storing redundant data across tables to minimize joins, allowing faster reads at the expense of more complex writes that must maintain consistency across duplicated data.\n- **Indexing**: Creating additional data structures that speed up searches but require overhead during write operations to maintain.\n- **Materialized views**: Pre-computed query results that provide near-instant access to complex aggregations but need refreshing when underlying data changes.\n- **Columnar storage**: Organizing data by columns rather than rows, enabling efficient analytics queries but complicating record insertions and updates.\n\nRead-optimized designs suit analytical workloads, reporting systems, and applications with high read-to-write ratios like content delivery platforms.\n\n## Write-Optimized Systems\n\nWrite-optimized databases prioritize data ingestion speed and typically implement:\n\n- **Log-structured storage**: Append-only data structures that convert random writes to sequential ones, dramatically improving write throughput.\n- **Minimal indexing**: Reducing indexes to minimize the overhead during writes, even if it means slower reads.\n- **Write-ahead logging (WAL)**: Ensuring durability by logging changes before applying them to the main database, optimizing for write performance.\n- **In-memory caching**: Buffering writes in memory before flushing to disk in larger batches.\n\nThese designs excel in high-throughput event processing, logging systems, and IoT applications where data ingestion rates are critical.\n\n## Hybrid Approaches\n\nModern database systems often implement hybrid strategies:\n\n- **CQRS (Command Query Responsibility Segregation)**: Separating read and write models, allowing each to be optimized independently.\n- **Change Data Capture (CDC)**: Tracking data changes to synchronize between write-optimized operational stores and read-optimized analytical systems.\n- **Lambda Architecture**: Processing data through both batch (optimized for comprehensive reads) and stream (optimized for recent writes) paths.\n- **Polyglot persistence**: Using different database technologies for different aspects of the application based on their read/write characteristics.\n\n## Performance Considerations\n\nSeveral factors influence the read-write balance:\n\n- **Consistency requirements**: Stronger consistency typically slows both reads and writes.\n- **Caching strategies**: Can dramatically improve read performance but add complexity for cache invalidation during writes.\n- **Storage media**: SSDs reduce the historical gap between random and sequential access, changing traditional optimization approaches.\n- **Sharding**: Distributing data across multiple nodes can improve both read and write throughput but increases operational complexity.\n\n## Practical Implementation\n\nWhen designing a database system, consider:\n\n1. Analyzing your workload's read-to-write ratio\n2. Identifying access patterns (random vs. sequential, point lookups vs. range scans)\n3. Determining latency requirements for both operations\n4. Understanding how these requirements might evolve as your application scales\n\nThe optimal balance between read and write optimization is highly contextual. By understanding your specific requirements and the inherent trade-offs involved, you can design database systems that deliver appropriate performance characteristics for your application's unique needs.",
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 14.564,
+                "peak_memory_kb": 32584.382,
+                "timestamp": "2025-10-18T13:32:33.051788",
+                "custom_metrics": {}
+            },
+            "definition": "def call_anthropic_api(params):\n    try:\n        response = client.messages.create(**params)\n        return response.content[0].text\n    except anthropic.AnthropicAPIError as e:\n        print(f\"Anthropic API Error: {e}\")\n        return None"
+        },
+        {
+            "test_id": 3,
+            "test_alias": "AI Test",
+            "test_message": null,
+            "error": null,
+            "error_message": null,
+            "metrics": {
+                "inputs": {
+                    "arg0": {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": "\nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                },
+                "args": [
+                    {
+                        "type": "dict",
+                        "length": 4,
+                        "sample": {
+                            "model": "claude-3-7-sonnet-20250219",
+                            "max_tokens": 5000,
+                            "system": "\nBe informative\nDo not tell the user what you are doing, just do it.\n"
+                        }
+                    }
+                ],
+                "kwargs": {},
+                "expected_output": 5,
+                "actual_output": "# Database Read vs Write Speed: Balancing Performance Trade-offs\n\nDatabase performance optimization requires understanding the fundamental differences between read and write operations. These operations have different performance characteristics that significantly impact database design decisions.\n\n## Read Operations\n\nRead operations generally execute faster than writes for several reasons. Reading data only requires locating and retrieving information without modifying the database state. Modern database systems utilize various techniques to accelerate reads:\n\n1. **Indexing**: B-tree, hash, and bitmap indexes allow for rapid data location without full table scans.\n2. **Caching**: Frequently accessed data stored in memory reduces disk I/O.\n3. **Read replicas**: Distributing read queries across multiple database instances.\n4. **Denormalization**: Strategic redundancy to avoid expensive joins.\n\n## Write Operations\n\nWrites are inherently more resource-intensive because they:\n\n1. **Modify physical storage**: Requiring actual disk I/O operations.\n2. **Maintain ACID properties**: Ensuring atomicity, consistency, isolation, and durability.\n3. **Update indexes**: Each modified column may require multiple index updates.\n4. **Generate logs**: Write-ahead logging for transaction safety and recovery.\n5. **Trigger constraints**: Enforcing data integrity rules.\n\n## Architectural Implications\n\nThe read/write performance disparity influences database architecture decisions:\n\n1. **OLTP vs. OLAP systems**: Transaction processing systems (OLTP) handle many small writes, while analytical systems (OLAP) optimize for complex reads on large datasets.\n\n2. **Write-optimized structures**: Log-structured merge trees (LSM) used in NoSQL databases like Cassandra optimize for write-heavy workloads by batching writes.\n\n3. **Read-optimized structures**: Column-oriented storage in databases like ClickHouse and analytical engines dramatically accelerates read operations for specific query patterns.\n\n4. **CQRS pattern**: Command Query Responsibility Segregation separates read and write operations into different models.\n\n## Performance Optimization Strategies\n\nEffective database design balances read and write performance based on workload characteristics:\n\n1. **Selective indexing**: Create indexes only on frequently queried columns, as each index slows writes.\n\n2. **Caching layers**: Implement Redis or Memcached to offload read operations.\n\n3. **Write buffering**: Batch multiple writes together to reduce overhead.\n\n4. **Asynchronous processing**: Defer non-critical writes using message queues.\n\n5. **Sharding**: Distribute data across multiple servers to parallelize both reads and writes.\n\n6. **Read replicas**: Direct read queries to replicas while routing writes to the primary instance.\n\n7. **Materialized views**: Pre-compute complex query results for faster reads at the cost of write complexity.\n\n## Application-Level Considerations\n\nApplication architecture should account for these differences:\n\n1. **Read-heavy applications**: Social media feeds, content platforms, and analytics dashboards benefit from read-optimized designs.\n\n2. **Write-heavy applications**: Logging systems, IoT data collection, and high-frequency trading platforms require write optimization.\n\n3. **Mixed workloads**: Most applications require balancing both concerns, often leading to polyglot persistence\u2014using different database types for different operations.\n\nThe key to effective database design is understanding your specific read/write patterns and making intentional trade-offs. There is no universal solution; rather, database architecture should reflect your application's unique requirements and usage patterns. Regular performance monitoring and willingness to evolve your design are essential to maintaining optimal performance as your application grows.",
+                "output_match": false,
+                "assertion": null,
+                "assertion_passed": null,
+                "execution_time_sec": 15.686,
+                "peak_memory_kb": 7731.169,
+                "timestamp": "2025-10-18T13:49:48.684058",
+                "custom_metrics": {}
+            },
+            "definition": "def call_anthropic_api(params):\n    try:\n        response = client.messages.create(**params)\n        return response.content[0].text\n    except anthropic.AnthropicAPIError as e:\n        print(f\"Anthropic API Error: {e}\")\n        return None"
         }
     ]
 }
